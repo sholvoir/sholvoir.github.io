@@ -14,6 +14,5 @@ gradle-app.setting
 .gradletasknamecache
 
 .DS_Store
-
 node_modules
 yarn.lock
