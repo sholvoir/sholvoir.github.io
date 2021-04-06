@@ -2221,7 +2221,6 @@ aftertastes
 afterthought
 afterthoughts
 afterward
-afterward/afterwards
 afterwards
 afterword
 afterwords
@@ -2709,7 +2708,6 @@ airmen
 airmiss
 airmobile
 airplane
-airplane/aeroplane
 airplanes
 airplay
 airplays
@@ -4053,7 +4051,6 @@ analytical
 analytically
 analyzable
 analyze
-analyze/analyse
 analyzed
 analyzer
 analyzers
@@ -10389,7 +10386,6 @@ behaved
 behaves
 behaving
 behavior
-behavior/behaviour
 behavioral
 behaviorally
 behaviorism
@@ -12513,7 +12509,6 @@ blokes
 blokish
 blond
 blond bombshell
-blond/blonde
 blonde
 blonde bombshell
 blonder
@@ -18871,7 +18866,6 @@ cataleptic
 cataleptically
 cataleptics
 catalog
-catalog/catalogue
 cataloged
 cataloger
 catalogers
@@ -19548,7 +19542,6 @@ center on
 center spread
 center stage
 center upon
-center/centre
 centerboard
 centerboards
 centered
@@ -20520,7 +20513,6 @@ check-in desk
 check-ins
 check-up
 check-ups
-check/cheque
 checkable
 checkbook
 checkbook journalism
@@ -24057,7 +24049,6 @@ color separation
 color-blind
 color-coded
 color-coordinated
-color/colour
 Coloradan
 Colorado
 Colorado beetle
@@ -32082,7 +32073,6 @@ defenestration
 defense
 defense mechanism
 defense mechanisms
-defense/defence
 defensed
 defenseless
 defenselessly
@@ -37455,7 +37445,6 @@ downtrodden
 downturn
 downturns
 downward
-downward/downwards
 downwardly
 downwardly mobile
 downwards
@@ -37526,7 +37515,6 @@ draft dodger
 draft dodgers
 draft in
 draft off
-draft/draught
 drafted
 draftee
 draftees
@@ -40236,7 +40224,6 @@ emaciation
 emaciations
 email
 email address
-email/e-mail
 emailed
 emailing
 emails
@@ -44979,7 +44966,6 @@ favela
 faves
 favor
 favor with
-favor/favour
 favorability
 favorable
 favorableness
@@ -44989,7 +44975,6 @@ favorer
 favoring
 favorite
 favorite son
-favorite/favourite
 favorites
 favoritism
 favoritisms
@@ -47061,7 +47046,6 @@ flautist
 flautists
 flavonoid
 flavor
-flavor/flavour
 flavored
 flavorful
 flavoring
@@ -54089,7 +54073,6 @@ gray dollar
 gray market
 gray matter
 gray water
-gray/grey
 graybeard
 graybeards
 grayed
@@ -56343,7 +56326,6 @@ harbinger
 harbingers
 harbor
 harbor master
-harbor/harbour
 harborage
 harbored
 harborer
@@ -59372,7 +59354,6 @@ honor societies
 honor society
 honor system
 honor systems
-honor/honour
 honorable
 Honorable
 honorable mention
@@ -60425,7 +60406,6 @@ hummus
 hummuses
 humongous
 humor
-humor/humour
 humored
 humoresque
 humoring
@@ -64288,7 +64268,6 @@ inquiries
 inquiring
 inquiringly
 inquiry
-inquiry/enquiry
 inquisition
 Inquisition
 inquisitional
@@ -66847,7 +66826,6 @@ jewelling
 jewelries
 jewelry
 jewelry box
-jewelry/jewellery
 jewels
 jewelweed
 Jewess
@@ -68404,7 +68382,6 @@ kiloliters
 kilolitre
 kilolitres
 kilometer
-kilometer/kilometre
 kilometers
 kilometre
 kilometres
@@ -69196,7 +69173,6 @@ labor union
 labor unions
 labor-intensive
 labor-saving
-labor/labour
 laboratories
 laboratory
 labored
@@ -71410,7 +71386,6 @@ license number
 license numbers
 license plate
 license plates
-license/licence
 licensed
 licensed practical nurse
 licensed practical nurses
@@ -72265,7 +72240,6 @@ litchi
 litchis
 lite
 liter
-liter/litre
 literacies
 literacy
 literal
@@ -77556,7 +77530,6 @@ meter
 meter maid
 meter maids
 meter-kilogram-second
-meter/metre
 meterage
 metered
 metering
@@ -78272,7 +78245,6 @@ millilitre
 millilitres
 millime
 millimeter
-millimeter/millimetre
 millimeters
 millimetre
 millimetres
@@ -79684,7 +79656,6 @@ molybdenum
 molybdenums
 mom
 mom-and-pop
-mom/mum
 Mombasa
 moment
 moment of truth
@@ -80910,13 +80881,11 @@ Mr. Fixit
 Mr. Nice Guy
 Mr. Right
 Mr. Universe
-Mr/Mr.
 MRI
 MRI scan
 Mrs
 Mrs Beeton
 Mrs.
-Mrs/Mrs.
 MRSA
 Ms
 MS
@@ -80924,7 +80893,6 @@ Ms Right
 Ms.
 ms.
 Ms. Right
-Ms/Ms.
 MSc
 MScs
 MSG
@@ -82681,11 +82649,9 @@ Nehemiah
 Nehru
 neigh
 neighbor
-neighbor/neighbour
 neighbored
 neighborhood
 neighborhood watch
-neighborhood/neighbourhood
 neighborhoods
 neighboring
 neighborliness
@@ -84532,7 +84498,6 @@ Northamptonshire
 northbound
 northeast
 Northeast
-northeast/north-east
 northeaster
 northeasterly
 northeasterly wind
@@ -85890,7 +85855,6 @@ offenders
 offending
 offends
 offense
-offense/offence
 offenses
 offensive
 offensively
@@ -91790,7 +91754,6 @@ perceived
 perceives
 perceiving
 percent
-percent/per cent
 percentage
 percentage point
 percentages
@@ -96657,7 +96620,6 @@ practically
 practicalness
 practicals
 practice
-practice/practise
 practiced
 practicer
 practices
@@ -98554,7 +98516,6 @@ progovernment
 program
 program music
 program note
-program/programme
 programed
 programer
 programers
@@ -108607,7 +108568,6 @@ rummies
 rummy
 rumor
 rumor mill
-rumor/rumour
 rumored
 rumoring
 rumormonger
@@ -115892,7 +115852,6 @@ skilled
 skillet
 skillets
 skillful
-skillful/skilful
 skillfully
 skillfulness
 skillfulnesses
@@ -118651,7 +118610,6 @@ Southampton
 southbound
 southeast
 Southeast
-southeast/south-east
 southeaster
 southeasterly
 southeasterly wind
@@ -122145,7 +122103,6 @@ stormy
 Stornoway
 story
 story line
-story/storey
 storyboard
 storyboarded
 storyboarding
@@ -127886,7 +127843,6 @@ theanthropic
 thearchy
 theater
 theater-in-the-round
-theater/theatre
 theatergoer
 theatergoers
 theatergoing
@@ -129229,7 +129185,6 @@ tire
 tire iron
 tire of
 tire out
-tire/tyre
 tired
 tired out
 tireder
@@ -129645,7 +129600,6 @@ Tomsk
 tomtit
 tomtits
 ton
-ton/tonne
 tonal
 tonalities
 tonality
@@ -130241,7 +130195,6 @@ tow truck
 tow trucks
 towage
 toward
-toward/towards
 towards
 towaway zone
 towbar
@@ -131128,7 +131081,6 @@ traveled
 traveler
 traveler's check
 traveler's checks
-traveler/traveller
 travelers
 traveling
 traveling salesman
@@ -135960,7 +135912,6 @@ upturns
 upward
 upward mobility
 upward of
-upward/upwards
 upwardly
 upwardly mobile
 upwards
@@ -139716,7 +139667,6 @@ webmasters
 webpage
 webs
 website
-website/Web site
 websites
 Webster
 webworm
@@ -139961,7 +139911,6 @@ well informed
 well intentioned
 well kept
 well known
-well known/well-known
 well liked
 well man clinic
 well mannered
@@ -140422,7 +140371,6 @@ Whiggism
 Whigs
 while
 while away
-while/whilst
 whiled
 whiles
 whiling
