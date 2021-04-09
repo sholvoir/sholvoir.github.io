@@ -2334,6 +2334,7 @@ aggregation
 aggregations
 aggregative
 aggregator
+aggress
 aggression
 aggressions
 aggressive
@@ -4670,6 +4671,8 @@ anteed
 anteing
 antelope
 antelopes
+antemeridian
+antemundane
 antenatal
 antenna
 antennae
@@ -4860,6 +4863,7 @@ antilock braking system
 antilog
 antilogarithm
 antilogarithms
+antilogy
 antimacassar
 antimacassars
 antimalarial
@@ -5453,6 +5457,7 @@ apprehend
 apprehended
 apprehending
 apprehends
+apprehensible
 apprehension
 apprehensions
 apprehensive
@@ -11176,6 +11181,7 @@ bibliographical
 bibliographically
 bibliographies
 bibliography
+bibliomania
 bibliophile
 bibliophiles
 bibliophilic
@@ -16866,6 +16872,7 @@ cadence
 cadenced
 cadences
 cadency
+cadent
 cadenza
 cadenzas
 cadet
@@ -34504,6 +34511,7 @@ dikes
 diking
 diktat
 diktats
+dilapidate
 dilapidated
 dilapidation
 dilapidations
@@ -35944,6 +35952,7 @@ dissented
 dissenter
 dissenters
 dissenting
+dissentious
 dissents
 dissertation
 dissertational
@@ -48369,6 +48378,7 @@ foreplay
 foreplays
 forequarter
 forequarters
+forerun
 forerunner
 forerunners
 fores
@@ -57710,6 +57720,7 @@ hemodialyses
 hemodialysis
 hemoglobin
 hemoglobins
+hemolysis
 hemophilia
 hemophiliac
 hemophiliacs
@@ -58020,6 +58031,7 @@ heterogeneous
 heterogeneously
 heterogeneousness
 heterogenous
+heteromorphic
 heteronym
 heteronymic
 heteronymous
@@ -62584,6 +62596,7 @@ inalienabilities
 inalienability
 inalienable
 inalienably
+inalterable
 inamorata
 inamoratas
 inamorato
@@ -63219,6 +63232,7 @@ Indianize
 Indianness
 Indians
 Indic
+indicant
 indicate
 indicated
 indicates
@@ -64031,6 +64045,7 @@ inhumanity
 inhumanly
 inhumanness
 inhumation
+inhume
 inimical
 inimically
 inimitability
@@ -66071,6 +66086,7 @@ isobar
 isobaric
 isobarism
 isobars
+isochronous
 isogon
 isogonic
 isolate
@@ -66210,6 +66226,7 @@ itinerantly
 itinerants
 itineraries
 itinerary
+itinerate
 its
 itself
 itsy-bitsy
@@ -79867,6 +79884,7 @@ monocot
 monocotyledon
 monocotyledonous
 monocotyledons
+monocracy
 monocular
 monocultural
 monoculture
@@ -82720,6 +82738,7 @@ neologism
 neologisms
 neologist
 neologize
+neology
 neon
 neonatal
 neonatally
@@ -97147,6 +97166,7 @@ preheating
 preheats
 prehensile
 prehensility
+prehension
 prehistoric
 prehistorical
 prehistorically
@@ -99139,6 +99159,7 @@ protuberance
 protuberances
 protuberant
 protuberantly
+protuberate
 proud
 prouder
 proudest
@@ -102842,6 +102863,7 @@ reciter
 reciters
 recites
 reciting
+reck
 reckless
 reckless driving
 recklessly
@@ -109743,6 +109765,7 @@ sapidity
 sapience
 sapiences
 sapient
+sapiential
 sapiently
 sapless
 sapling
@@ -119459,6 +119482,7 @@ spinning wheels
 spinnings
 spinoff
 spinoffs
+spinous
 Spinoza
 spins
 spinster
@@ -125309,6 +125333,7 @@ sympathy vote
 symphonic
 symphonically
 symphonies
+symphonious
 symphony
 symphony orchestra
 symphony orchestras
@@ -134536,6 +134561,7 @@ unisex
 unisexes
 unisexual
 unison
+unisonous
 unisons
 unit
 unit cost
@@ -135744,6 +135770,7 @@ upgrading
 upgrowth
 upheaval
 upheavals
+upheave
 upheld
 uphill
 uphills
@@ -137567,6 +137594,7 @@ vine
 vinegar
 vinegars
 vinegary
+vinery
 vines
 vineyard
 vineyards
@@ -141571,6 +141599,7 @@ witless
 witlessly
 witlessness
 witlessnesses
+witling
 witness
 witness box
 witness boxes

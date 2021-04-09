@@ -895,7 +895,7 @@ impurity
 inaccessible
 inaccurate
 inadequate
-inasmuch
+inasmuch as
 inaugurate
 incapable
 incense
