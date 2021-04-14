@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 # yaml-language-server: $schema=https://json-schema.org/draft-04/schema
-$id: "https://micinfotech.com/glossary/import-config.schema.json"
+$id: "https://sholvoir.github.io/word-list/config.schema.yml"
 title: Import Config
 description: "import configure file, import tool will work base it."
 definitions:
