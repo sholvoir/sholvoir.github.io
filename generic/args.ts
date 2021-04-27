@@ -1,4 +1,4 @@
-export function getArgs() {
+export default function getArgs() {
     const options = new Map<string, string>();
     const args = new Array<string>();
     for (const arg of Deno.args) if (arg.startsWith('-')) {
