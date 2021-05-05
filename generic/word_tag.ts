@@ -44,7 +44,7 @@ export class Tag {
     static get(name: string) { return (Tag as any)[name] || 0; }
     value = 0;
     constructor(value: number) { this.value = value; }
-    add(tag: number) { this.value |= tag; }
+    attach(tag: number) { this.value |= tag; }
     remove(tag: number) { this.value &= ~tag; }
     toString() { return this.value.toString(); }
 }
