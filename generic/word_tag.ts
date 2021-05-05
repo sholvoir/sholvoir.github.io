@@ -1,44 +1,44 @@
-export class Tag {
-    static ogden    = 0x00000000001;
-    static mac      = 0x00000000002;
-    static longman  = 0x00000000004;
-    static S1       = 0x00000000008;
-    static S2       = 0x00000000010;
-    static S3       = 0x00000000020;
-    static W1       = 0x00000000040;
-    static W2       = 0x00000000080;
-    static W3       = 0x00000000100;
-    static voa      = 0x00000000200;
-    static wik      = 0x00000000400;
-    static a1       = 0x00000000800;
-    static a2       = 0x00000001000;
-    static b1       = 0x00000002000;
-    static b2       = 0x00000004000;
-    static c1       = 0x00000008000;
-    static c2       = 0x00000010000;
-    static L1       = 0x00000020000;
-    static L2       = 0x00000040000;
-    static L3       = 0x00000080000;
-    static L4       = 0x00000100000;
-    static L5       = 0x00000200000;
-    static ngsl     = 0x00000400000;
-    static ngsls    = 0x00000800000;
-    static nawl     = 0x00001000000;
-    static tsl      = 0x00002000000;
-    static bsl      = 0x00004000000;
-    static ndl      = 0x00008000000;
-    static fel      = 0x00010000000;
-    static coca     = 0x00020000000;
-    static bnc      = 0x00040000000;
-    static hsee     = 0x00080000000;
-    static ncee     = 0x00100000000;
-    static npee     = 0x00200000000;
-    static cet4     = 0x00400000000;
-    static cet6     = 0x00800000000;
-    static toefl    = 0x01000000000;
-    static ielts    = 0x02000000000;
-    static sat      = 0x04000000000;
-    static gre      = 0x08000000000;
-    static gmat     = 0x10000000000;
-    static bec      = 0x20000000000;
+export const tag: Record<string, number> = {
+    ogden:      0x00000000001,
+    mac:        0x00000000002,
+    longman:    0x00000000004,
+    S1:         0x00000000008,
+    S2:         0x00000000010,
+    S3:         0x00000000020,
+    W1:         0x00000000040,
+    W2:         0x00000000080,
+    W3:         0x00000000100,
+    voa:        0x00000000200,
+    wik:        0x00000000400,
+    a1:         0x00000000800,
+    a2:         0x00000001000,
+    b1:         0x00000002000,
+    b2:         0x00000004000,
+    c1:         0x00000008000,
+    c2:         0x00000010000,
+    L1:         0x00000020000,
+    L2:         0x00000040000,
+    L3:         0x00000080000,
+    L4:         0x00000100000,
+    L5:         0x00000200000,
+    ngsl:       0x00000400000,
+    ngsls:      0x00000800000,
+    nawl:       0x00001000000,
+    tsl:        0x00002000000,
+    bsl:        0x00004000000,
+    ndl:        0x00008000000,
+    fel:        0x00010000000,
+    coca:       0x00020000000,
+    bnc:        0x00040000000,
+    hsee:       0x00080000000,
+    ncee:       0x00100000000,
+    npee:       0x00200000000,
+    cet4:       0x00400000000,
+    cet6:       0x00800000000,
+    toefl:      0x01000000000,
+    ielts:      0x02000000000,
+    sat:        0x04000000000,
+    gre:        0x08000000000,
+    gmat:       0x10000000000,
+    bec:        0x20000000000,
 }
