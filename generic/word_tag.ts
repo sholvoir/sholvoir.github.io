@@ -41,7 +41,7 @@ export class Tag {
     static readonly GRE      = 0x08000000000;
     static readonly GMAT     = 0x10000000000;
     static readonly BEC      = 0x20000000000;
-    static get(name: string): number | undefined { return (<any>Tag)[name.toLowerCase()]; }
+    static get(name: string): number | undefined { return (<any>Tag)[name.toUpperCase()]; }
     value = 0;
     constructor(value: number) { this.value = value; }
     attach(tag: number) { this.value |= tag; }
