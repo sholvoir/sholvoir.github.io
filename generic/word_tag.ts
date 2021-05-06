@@ -2,12 +2,12 @@ export class Tag {
     static ogden    = 0x00000000001;
     static mac      = 0x00000000002;
     static long     = 0x00000000004;
-    static S1       = 0x00000000008;
-    static S2       = 0x00000000010;
-    static S3       = 0x00000000020;
-    static W1       = 0x00000000040;
-    static W2       = 0x00000000080;
-    static W3       = 0x00000000100;
+    static s1       = 0x00000000008;
+    static s2       = 0x00000000010;
+    static s3       = 0x00000000020;
+    static w1       = 0x00000000040;
+    static w2       = 0x00000000080;
+    static w3       = 0x00000000100;
     static voa      = 0x00000000200;
     static wik      = 0x00000000400;
     static a1       = 0x00000000800;
@@ -16,11 +16,11 @@ export class Tag {
     static b2       = 0x00000004000;
     static c1       = 0x00000008000;
     static c2       = 0x00000010000;
-    static L1       = 0x00000020000;
-    static L2       = 0x00000040000;
-    static L3       = 0x00000080000;
-    static L4       = 0x00000100000;
-    static L5       = 0x00000200000;
+    static l1       = 0x00000020000;
+    static l2       = 0x00000040000;
+    static l3       = 0x00000080000;
+    static l4       = 0x00000100000;
+    static l5       = 0x00000200000;
     static ngsl     = 0x00000400000;
     static ngsls    = 0x00000800000;
     static nawl     = 0x00001000000;
@@ -41,7 +41,7 @@ export class Tag {
     static gre      = 0x08000000000;
     static gmat     = 0x10000000000;
     static bec      = 0x20000000000;
-    static get(name: string): number | undefined { return (<any>Tag)[name]; }
+    static get(name: string): number | undefined { return (<any>Tag)[name.toLowerCase()]; }
     value = 0;
     constructor(value: number) { this.value = value; }
     attach(tag: number) { this.value |= tag; }
