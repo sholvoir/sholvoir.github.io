@@ -1,28 +1,17 @@
 // deno-lint-ignore-file no-explicit-any
-import { assert } from "https://deno.land/std@0.140.0/_util/assert.ts";
-import { Status } from 'https://deno.land/std@0.140.0/http/http_status.ts';
-import { encode as b64Encode } from 'https://deno.land/std@0.140.0/encoding/base64.ts';
-import { encode as hexEncode } from 'https://deno.land/std@0.140.0/encoding/hex.ts';
+import { HTTPMethod } from 'https://www.micinfotech.com/generic/http-method.ts';
 
-const textDecode = new TextDecoder("utf-8").decode;
-const textEncode = new TextEncoder().encode;
-
-export async function hmacSha256(secret: string, text: string, encode: 'hex' | 'b64') {
-    const key = await crypto.subtle.importKey("raw", textEncode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
-    const digest = new Uint8Array(await crypto.subtle.sign("HMAC", key, textEncode(text)));
-    if (encode == 'hex') return textDecode(hexEncode(digest));
-    return b64Encode(digest);
-}
-
-type Method = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE' | 'HEAD';
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export interface Webhook {
     id?: string;
     topic: string;
-    address: string;
+    address?: string;
     format?: 'json';
     api_version?: string;
+    fields?: Array<string>;
+    metafield_namespaces?: Array<string>;
+    private_metafield_namespaces?: Array<string>;
 }
 
 export interface ScriptTag {
@@ -76,7 +65,7 @@ export class ShopifyAPI {
         this.#retryWaitTime = retryWaitTime;
     }
 
-    async request(endpoint: string, method?: Method, data?: unknown): Promise<any> {
+    async request(endpoint: string, method?: HTTPMethod, data?: unknown): Promise<any> {
         const uri = `https://${this.#shop}/${endpoint}`;
         const headers = new Headers();
         if (this.#token.length) headers.append("X-Shopify-Access-Token", this.#token);
@@ -90,7 +79,7 @@ export class ShopifyAPI {
         let tries = 0;
         while (true) {
             const response = await fetch(uri, params);
-            if (response.status == Status.OK) {
+            if (response.status == 200) {
                 const result = await response.json();
                 result.http_status = response.status;
                 return result;
@@ -108,7 +97,7 @@ export class ShopifyAPI {
         let tries = 0;
         while (true) {
             const response = await fetch(uri, { method: "POST", headers, body: query });
-            if (response.status == Status.OK) {
+            if (response.status == 200) {
                 const result = await response.json();
                 result.http_status = response.status;
                 return result;
@@ -121,6 +110,10 @@ export class ShopifyAPI {
         return await this.request("/admin/oauth/access_token", 'POST', { client_id, client_secret, code });
     }
 
+    async getShop() {
+        return (await this.request(`/admin/api/${this.#apiVersion}/shop.json`)).shop;
+    }
+
     async getWebhooks() {
         return (await this.request(`/admin/api/${this.#apiVersion}/webhooks.json`)).webhooks as Array<Webhook>;
     }
@@ -131,7 +124,7 @@ export class ShopifyAPI {
     }
 
     async updateWebhook(webhook: Webhook) {
-        assert(webhook.id, 'webhook must have an id.')
+        if (!webhook.id) throw new Error('webhook must have an id.');
         webhook = { format: 'json', api_version: this.#apiVersion, ...webhook };
         return (await this.request(`/admin/api/${this.#apiVersion}/webhooks/${webhook.id!}.json`, 'PUT', { webhook })).webhook as Webhook;
     }
@@ -149,7 +142,7 @@ export class ShopifyAPI {
     }
 
     async updateScriptTag(script_tag: ScriptTag) {
-        assert(script_tag.id, 'script_tag must have an id.');
+        if (!script_tag.id) throw new Error('script_tag must have an id.');
         return (await this.request(`/admin/api/${this.#apiVersion}/script_tags/${script_tag.id}.json`, 'PUT', { script_tag })).script_tag as ScriptTag;
     }
 
