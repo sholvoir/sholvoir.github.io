@@ -16,3 +16,5 @@ gradle-app.setting
 .DS_Store
 node_modules
 yarn.lock
+deno.lock
+.env
