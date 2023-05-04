@@ -24,7 +24,7 @@ export class Mongo {
         this.#reqInit.body = JSON.stringify(body);
         const res = await fetch(`${this.#endpoint}/action/${action}`, this.#reqInit);
         if (res.ok) return await res.json();
-        throw new Error(`Error: ${res.status}`);
+        throw new Error(`Error: ${res.statusText}`);
     }
     
     async findOne(filter: Record<string, unknown>) {
