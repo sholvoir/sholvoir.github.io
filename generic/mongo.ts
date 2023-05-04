@@ -7,7 +7,8 @@ export interface IDataSource {
 export class Mongo {
     #reqInit: RequestInit;
     #endpoint: string;
-    constructor(endpoint: string, apiKey: string) {
+    #dataSource: IDataSource;
+    constructor(endpoint: string, apiKey: string, dataSource: IDataSource) {
         this.#endpoint = endpoint;
         this.#reqInit = {
             method: 'POST',
@@ -16,7 +17,8 @@ export class Mongo {
                 "Access-Control-Request-Headers": "*",
                 apiKey
             })
-        }
+        };
+        this.#dataSource = dataSource;
     }
     async #act<S extends IDataSource>(action: string, body: S) {
         this.#reqInit.body = JSON.stringify(body);
@@ -25,42 +27,42 @@ export class Mongo {
         throw new Error(`Error: ${res.status}`);
     }
     
-    async findOne(dataSource: IDataSource, filter: Record<string, unknown>) {
-        return (await this.#act('findOne', { ...dataSource, filter })).document;
+    async findOne(filter: Record<string, unknown>) {
+        return (await this.#act('findOne', { ...this.#dataSource, filter })).document;
     }
     
-    async find(dataSource: IDataSource, filter: Record<string, unknown>) {
-        return (await this.#act('find', { ...dataSource, filter })).documents as Array<unknown>;
+    async find(filter: Record<string, unknown>) {
+        return (await this.#act('find', { ...this.#dataSource, filter })).documents as Array<unknown>;
     }
     
-    async insertOne(dataSource: IDataSource, document: Record<string, unknown>) {
-        return (await this.#act('insertOne', { ...dataSource, document })).insertedId as string;
+    async insertOne(document: Record<string, unknown>) {
+        return (await this.#act('insertOne', { ...this.#dataSource, document })).insertedId as string;
     }
     
-    async insertMany(dataSource: IDataSource, documents: Array<Record<string, unknown>>) {
-        return (await this.#act('insertMany', { ...dataSource, documents })).insertedIds as Array<string>;
+    async insertMany(documents: Array<Record<string, unknown>>) {
+        return (await this.#act('insertMany', { ...this.#dataSource, documents })).insertedIds as Array<string>;
     }
     
-    async updateOne(dataSource: IDataSource, filter: Record<string, unknown>, document: Record<string, unknown>) {
+    async updateOne(filter: Record<string, unknown>, document: Record<string, unknown>) {
         if (document._id) delete document._id;
-        return (await this.#act('updateOne', { ...dataSource, filter, update: { "$set": document } })).modifiedCount as number;
+        return (await this.#act('updateOne', { ...this.#dataSource, filter, update: { "$set": document } })).modifiedCount as number;
     }
     
-    async updateMany(dataSource: IDataSource, filter: Record<string, unknown>, document: Record<string, unknown>) {
+    async updateMany(filter: Record<string, unknown>, document: Record<string, unknown>) {
         if (document._id) delete document._id;
-        return (await this.#act('updateMany', { ...dataSource, filter, update: { "$set": document } })).modifiedCount as number;
+        return (await this.#act('updateMany', { ...this.#dataSource, filter, update: { "$set": document } })).modifiedCount as number;
     }
     
-    async replaceOne(dataSource: IDataSource, filter: Record<string, unknown>, replacement: Record<string, unknown>) {
+    async replaceOne(filter: Record<string, unknown>, replacement: Record<string, unknown>) {
         if (replacement._id) delete replacement._id;
-        return (await this.#act('replaceOne', { ...dataSource, filter, replacement })).modifiedCount as number;
+        return (await this.#act('replaceOne', { ...this.#dataSource, filter, replacement })).modifiedCount as number;
     }
     
-    async deleteOne(dataSource: IDataSource, filter: Record<string, unknown>) {
-        return (await this.#act('deleteOne', { ...dataSource, filter })).deletedCount as number;
+    async deleteOne(filter: Record<string, unknown>) {
+        return (await this.#act('deleteOne', { ...this.#dataSource, filter })).deletedCount as number;
     }
     
-    async deleteMany(dataSource: IDataSource, filter: Record<string, unknown>) {
-        return (await this.#act('deleteMany', { ...dataSource, filter })).deletedCount as number;
+    async deleteMany(filter: Record<string, unknown>) {
+        return (await this.#act('deleteMany', { ...this.#dataSource, filter })).deletedCount as number;
     }
 }
