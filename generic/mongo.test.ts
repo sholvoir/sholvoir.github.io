@@ -1,11 +1,11 @@
 import "std/dotenv/load.ts";
 import { Mongo } from './mongo.ts';
-import { assertEquals } from 'std/testing/asserts.ts';
+import { assertEquals } from 'std/assert/assert_equals.ts';
 
 Deno.test('Mongo', async (t) => {
     const mongo = new Mongo(
-        Deno.env.get('MONGO_DB_END_POINT')!,
-        Deno.env.get('MONGO_DB_API_KEY')!,
+        Deno.env.get('MONGO_END_POINT')!,
+        Deno.env.get('MONGO_API_KEY')!,
         {
             "dataSource": "Cluster0",
             "database": "test",
