@@ -1,11 +1,13 @@
 export default async function publish(commit: string, cwd?: string) {
-    const commands = [{ cmd: ["git", "add", "."], cwd },
-        { cmd: ["git", "commit", "-m", `"${commit}"`], cwd },
-        { cmd: ["git", "push"], cwd }];
+    const commands: [string, Deno.CommandOptions][] = [
+        ["git", { args: ["add", "."], cwd }],
+        ["git", { args: ["commit", "-m", `"${commit}"`], cwd }],
+        ["git", { args: ["push"], cwd }]
+    ];
     for (const command of commands) {
-        const process = Deno.run(command);
-        const result = await process.status();
-        if (!result.success) return `Failed at "${command.cmd.join(" ")}"`;
-        process.close();
+        const process = new Deno.Command(...command);
+        const result = await process.output();
+        if (!result.success) return `Failed at "${command[0]} ${command[1].args?.join(" ")}"`;
+        console.log(result.stdout);
     }
 }

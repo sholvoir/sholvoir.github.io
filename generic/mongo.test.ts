@@ -1,6 +1,5 @@
-import "std/dotenv/load.ts";
 import { Mongo } from './mongo.ts';
-import { assertEquals } from 'std/assert/assert_equals.ts';
+import { assertEquals } from '$std/assert/assert_equals.ts';
 
 Deno.test('Mongo', async (t) => {
     const mongo = new Mongo(
