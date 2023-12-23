@@ -16,7 +16,7 @@ export class JWT {
     async exportKey() {
         return encodeBase64(await crypto.subtle.exportKey('raw', this.#key!))
     }
-    async createToken(payload?: Payload, exp?: number) {
+    async createToken(exp?: number, payload?: Payload ) {
         return await create(this.tokenHeader, { ...this.payloadTemplate, exp: getNumericDate(exp || 5 * 60), ...payload }, this.#key!);
     }
     async verifyToken(token: string): Promise<Payload> {
