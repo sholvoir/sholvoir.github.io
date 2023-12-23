@@ -6,7 +6,7 @@ export class JWT {
     algorithm: HmacKeyGenParams = { name: "HMAC", hash: "SHA-256" };
     keyUsages: KeyUsage[] = ["sign", "verify"];
     tokenHeader: Header = { alg: "HS256", typ: "JWT" };
-    exp = 5 * 60;
+    payloadTemplate?: Payload;
     async init() {
         this.#key = await crypto.subtle.generateKey(this.algorithm, true, this.keyUsages);
     }
@@ -17,7 +17,7 @@ export class JWT {
         return encodeBase64(await crypto.subtle.exportKey('raw', this.#key!))
     }
     async createToken(payload?: Payload, exp?: number) {
-        return await create(this.tokenHeader, { exp: getNumericDate(exp || this.exp), ...payload }, this.#key!);
+        return await create(this.tokenHeader, { ...this.payloadTemplate, exp: getNumericDate(exp || 5 * 60), ...payload }, this.#key!);
     }
     async verifyToken(token: string): Promise<Payload> {
         return await verify(token, this.#key!);
