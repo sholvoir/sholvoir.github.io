@@ -24,7 +24,8 @@ export class JWT {
     async createToken(exp?: number, payload?: Payload ) {
         return await create(this.tokenHeader, { ...this.#template, exp: getNumericDate(exp || 5 * 60), ...payload }, this.#key!);
     }
-    async verifyToken(token: string): Promise<Payload> {
-        return await verify(token, this.#key!);
+    async verifyToken(token: string): Promise<Payload | null> {
+        try { return await verify(token, this.#key!); }
+        catch { return null }
     }
 }
