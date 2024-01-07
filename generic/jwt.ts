@@ -10,12 +10,10 @@ export class JWT {
     constructor(template?: Payload) {
         this.#template = template;
     }
-    async init() {
-        this.#key = await crypto.subtle.generateKey(this.algorithm, true, this.keyUsages);
-        return this;
-    }
-    async importKey(key: string) {
-        this.#key = await crypto.subtle.importKey('raw', decodeBase64(key), this.algorithm, false, this.keyUsages);
+    async importKey(key?: string) {
+        this.#key = key ?
+            await crypto.subtle.importKey('raw', decodeBase64(key), this.algorithm, false, this.keyUsages) :
+            await crypto.subtle.generateKey(this.algorithm, true, this.keyUsages);
         return this;
     }
     async exportKey() {
