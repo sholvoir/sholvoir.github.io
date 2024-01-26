@@ -57,7 +57,6 @@ abduction: ST
 abductor: FE
 abecedarian: GR
 abed: ST
-Aberdeen: BN
 aberrant: GR,TF
 aberration: GR,L1,ST
 abet: GR,ST
