@@ -586,7 +586,7 @@ I'd: L5
 I'll: FS,L5
 I'm: L5
 I've: L5
-I: A1,BS,DL,FS,GK,GL,GS,L5,OG,S1,T4,VA,W1,WK,ZK
+I: A1,BS,CA,DL,FS,GK,GL,GS,L5,OG,S1,T4,VA,W1,WK,ZK
 IBM: BN,BW
 ICI: BN
 ID: B2,L1,TF
@@ -6160,7 +6160,8 @@ contradistinction: WB
 contraindication: WB
 contrary to: BN
 contrary: AW,BL,BN,C1,GK,GR,IS,KY,L2,T4,T6,TF,TL
-contrast: B1,BN,BW,CA,GL,GM,IS,KY,L3,T4,T6,TF,W2
+contrast1: B1,BN,BW,CA,GL,GM,IS,KY,L3,T4,T6,TF,W2
+contrast2: B1,BN,BW,CA,GL,GM,IS,KY,L3,T4,T6,TF,W2
 contrastive: WB
 contravene: GR,L1
 contravention: GR
@@ -9154,10 +9155,12 @@ estimable: GR
 estimate: B2,BE,BN,BS,BW,CA,GL,GM,IS,KY,L4,S3,T4,T6,TF,VA,W2,WB
 estimated: BN,BW,CA
 estimation: AW,BL
+estradiol: WB
 estrange: GR,IS,ST
 estranged: GR,L1
 estrangement: GR
 estriol: WB
+estrogen: L1
 estuarine: TF
 estuary: GR,IS,L1,TF
 esurience: GR
@@ -9308,7 +9311,8 @@ exception: B2,BE,BN,BS,BW,CA,GL,GR,KY,L3,S3,T4,T6,TF,W2
 exceptionable: GR
 exceptional: BL,BN,C1,GM,GR,IS,KY,L2,ST,T6,TL
 exceptionally: TF,WB
-excerpt: GM,GR,IS,KY,L3,ST
+excerpt1: GM,GR,IS,KY,L3,ST
+excerpt2: GM,GR,IS,KY,L3,ST
 excess: BE,BN,C1,GL,GR,IS,KY,L3,ST,T4,T6,TF,WB
 excessive: B2,BE,BL,BN,CA,FE,GM,GR,IS,KY,L2,T4,T6,TF,TL
 excessively: GR,T6,TF
@@ -9473,7 +9477,8 @@ explosively: TF
 expo: TF
 exponent: GR,L1,ST,TF
 exponential: AW,TF
-export: B1,BE,BN,BW,CA,GK,GL,GM,IS,KY,L4,T4,TF,VA,W2
+export1: B1,BE,BN,BW,CA,GK,GL,GM,IS,KY,L4,T4,TF,VA,W2
+export2: B1,BE,BN,BW,CA,GK,GL,GM,IS,KY,L4,T4,TF,VA,W2
 exportation: TF
 exporter: BE,BL
 expose: B2,BE,CA,GK,GL,IS,KY,L3,T4,T6,TF,W3,WB
@@ -14316,11 +14321,12 @@ leachate: WB
 lead singer: L1
 lead-off: WB
 lead1: A2,B1,BE,BN,BS,BW,CA,DL,FS,GK,GL,GS,IS,L2,L5,LD,MC,OG,S1,S2,ST,T4,TF,VA,W1,W2,WB,WK,ZK
-lead2: LH
+lead2: A2,B1,BE,BN,BS,BW,CA,DL,FS,GK,GL,GS,IS,L2,L5,LD,MC,OG,S1,S2,ST,T4,TF,VA,W1,W2,WB,WK,ZK
 leader: A2,BE,BN,BS,BW,CA,GK,GL,L5,MC,S2,T4,TF,W1,ZK
 leadership: B2,BE,BN,BS,BW,CA,GL,IS,KY,L4,MC,S3,T4,TF,W2
 leading article: L1
-leading: B1,BE,BN,BS,BW,CA,GK,KY,L4,MC,T4,W2
+leading1: B1,BE,BN,BS,BW,CA,GK,KY,L4,MC,T4,W2
+leading2: B1,BE,BN,BS,BW,CA,GK,KY,L4,MC,T4,W2
 leaf: AW,B1,BN,CA,GK,KY,L3,LD,MC,OG,S2,T4,TF,W2,WB,WK,ZK
 leafcutter: TF
 leaflet: B2,BE,BN,BS,GR,IS,KY,L2,ST,T6,TF
@@ -14872,7 +14878,8 @@ low: A2,B2,BN,BS,BW,CA,DL,FS,GK,GL,GS,KY,L5,LD,MC,OG,S1,T4,TF,VA,W1,WB,WK,ZK
 lowa: TF
 lowborn: WB
 lowbred: GR
-lower: B2,BN,BS,BW,CA,IS,KY,L3,LD,MC,S3,T4,TF,W3,WB,WK
+lower1: B2,BN,BS,BW,CA,IS,KY,L3,LD,MC,S3,T4,TF,W3,WB,WK
+lower2: B2,BN,BS,BW,CA,IS,KY,L3,LD,MC,S3,T4,TF,W3,WB,WK
 lowercase: WB
 lowland: TF
 lowly: L1
@@ -15699,7 +15706,7 @@ mindful: FE,L1,WB
 mindfulness: FE
 mindless: L1
 mindset: FE
-mine: A2,B1,BE,BN,BS,BW,CA,DL,FS,GK,GL,GS,L2,L5,LD,MC,OG,S1,S2,T4,TF,VA,W3,WB,ZK
+mine: A2,B1,BE,BN,BS,BW,CA,FS,GK,GL,GS,L2,L5,LD,MC,OG,S1,S2,T4,TF,VA,W3,WB,ZK
 minefield: L1
 miner: B2,BN,BS,L3,T4,TF
 mineral water: L1
@@ -16978,8 +16985,6 @@ odorous: ST,TF
 odour: IS,KY,L1,T4
 odyssey: BE,IS,L1
 oesophagus: GR
-oestradiol: WB
-oestrogen: L1
 of course: BN,BS,BW,L5,S1,W1
 of: A1,BN,BS,BW,CA,DL,FS,GK,GL,GS,L5,LD,MC,OG,S1,T4,VA,W1,WB,WK,ZK
 off duty: L1
@@ -19366,7 +19371,8 @@ program: A2,B1,BN,BS,BW,CA,DL,GL,GS,L4,LD,MC,T4,T6,TF,VA,W1,WB,ZK
 programme: A1,BE,BN,BS,BW,GK,KY,L5,MC,S1,TF,W1,WB
 programmer: BL,T4,TF,TL
 programming: B2,BN,CA,T4,WB
-progress: A2,B2,BE,BN,BS,BW,CA,GK,GL,KY,L4,LD,MC,S2,T4,TF,VA,W2,ZK
+progress1: A2,B2,BE,BN,BS,BW,CA,GK,GL,KY,L4,LD,MC,S2,T4,TF,VA,W2,ZK
+progress2: A2,B2,BE,BN,BS,BW,CA,GK,GL,KY,L4,LD,MC,S2,T4,TF,VA,W2,ZK
 progression: AW,FE,GM,L1,ST,TF
 progressive: AW,B2,BL,BN,CA,GM,KY,L2,T4,T6,TF,WB
 progressively: TF
@@ -19498,7 +19504,6 @@ protection: B2,BN,BS,BW,CA,GK,GL,L4,LD,MC,S2,T4,TF,W2
 protectionist: TF
 protective: BN,C1,CA,GR,L2,LD,T4,TF,TL,WB
 protector: L1,TF
-protege: GM
 protein: B2,BN,BW,CA,GL,GM,IS,KY,L3,MC,ST,T4,T6,TF
 proteins: BN,VA
 proteomics: WB
@@ -19704,7 +19709,8 @@ purlieus: GR
 purloin: GR,ST
 purple: A1,BN,BS,CA,DL,GK,KY,L2,LD,MC,S3,T4,TF,ZK
 purplish: TF
-purport: GM,GR,L1,ST
+purport1: GM,GR,L1,ST
+purport2: GM,GR,L1,ST
 purported: GR
 purpose-built: L1,WB
 purpose: A2,BE,BN,BS,BW,CA,GK,GL,GS,IS,KY,L4,LD,MC,OG,S2,T4,TF,VA,W2,WB,ZK
@@ -20077,6 +20083,7 @@ raze: GR,ST
 razor: GK,GR,KY,L1
 razzle: GR
 re-: LD,VA
+re-create: IS,L1,ST,TF,WB
 re-elect: L2,WB
 re-election: CA,TF
 re-emergence: WB
@@ -24028,7 +24035,8 @@ surrounded: BN,BW
 surrounding: B2,BN,CA,GK,T4,TF
 surroundings: BN,IS,KY,L2,T4
 surveillance: BL,C1,CA,GR,IS,L2
-survey: A2,B2,BE,BN,BS,BW,CA,GL,GM,IS,KY,L4,S2,T4,T6,TF,W2,ZK
+survey1: A2,B2,BE,BN,BS,BW,CA,GL,GM,IS,KY,L4,S2,T4,T6,TF,W2,ZK
+survey2: A2,B2,BE,BN,BS,BW,CA,GL,GM,IS,KY,L4,S2,T4,T6,TF,W2,ZK
 surveyor: TF
 survivable: TF
 survival: B2,BN,BW,CA,GK,GL,IS,KY,T4,T6,TF,W3,WB
@@ -24038,7 +24046,8 @@ survivor: B2,CA,GR,L1,T4,TF
 susceptibility: L1
 susceptible: AW,GM,GR,IS,KY,L1,ST,T6,TF
 susceptive: GR
-suspect: B2,BN,BS,BW,CA,GK,GL,GM,GR,IS,KY,L4,S2,ST,T4,T6,TF,VA,W3
+suspect1: B2,BN,BS,BW,CA,GK,GL,GM,GR,IS,KY,L4,S2,ST,T4,T6,TF,VA,W3
+suspect2: B2,BN,BS,BW,CA,GK,GL,GM,GR,IS,KY,L4,S2,ST,T4,T6,TF,VA,W3
 suspend: B2,CA,GL,GR,IS,KY,L3,ST,T4,T6,TF,VA
 suspended: BN,BW
 suspender: TF,WB
@@ -25062,7 +25071,8 @@ transcribe: AW,GR,IS,L1,ST,TF
 transcript: C1,IS,L2,ST
 transcription: AW,GR,IS,ST
 transept: WB
-transfer: B2,BE,BN,BS,BW,CA,GL,GM,GR,IS,KY,L4,S3,ST,T4,T6,TF,W2
+transfer1: B2,BE,BN,BS,BW,CA,GL,GM,GR,IS,KY,L4,S3,ST,T4,T6,TF,W2
+transfer2: B2,BE,BN,BS,BW,CA,GL,GM,GR,IS,KY,L4,S3,ST,T4,T6,TF,W2
 transferable: GR
 transfigure: GR,ST
 transfix: GR
