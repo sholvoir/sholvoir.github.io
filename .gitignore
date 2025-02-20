@@ -13,8 +13,8 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-.DS_Store
 node_modules
-yarn.lock
-deno.lock
+.DS_Store
 .env
+*.lock
+*.map

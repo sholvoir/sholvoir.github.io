@@ -1,0 +1,2 @@
+var s="https://memword.micinfotech.com";var t="0.6.0";var i=`MemWord-V${t}`,r=new RegExp(`^${s}/(pub|api|admin)/`),c=async()=>{for(let e of await caches.keys())e!==i&&await caches.delete(e);await self.clients.claim()},a=async e=>r.test(e.url)?(console.log(e.url),fetch(e)):await fetch(e);self.oninstall=e=>e.waitUntil(self.skipWaiting());self.onactivate=e=>e.waitUntil(c());self.onfetch=e=>e.respondWith(a(e.request));
+//# sourceMappingURL=worker.js.map
