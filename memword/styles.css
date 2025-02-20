@@ -585,6 +585,9 @@
   .h-4 {
     height: calc(var(--spacing) * 4);
   }
+  .h-5 {
+    height: calc(var(--spacing) * 5);
+  }
   .h-6 {
     height: calc(var(--spacing) * 6);
   }
@@ -599,6 +602,9 @@
   }
   .h-full {
     height: 100%;
+  }
+  .w-5 {
+    width: calc(var(--spacing) * 5);
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
@@ -699,6 +705,12 @@
   }
   .fill-none {
     fill: none;
+  }
+  .fill-slate-400 {
+    fill: var(--color-slate-400);
+  }
+  .stroke-slate-600 {
+    stroke: var(--color-slate-600);
   }
   .stroke-slate-800 {
     stroke: var(--color-slate-800);
