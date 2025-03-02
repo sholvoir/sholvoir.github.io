@@ -1,1 +1,29 @@
-var a="https://memword.micinfotech.com";var o="0.6.5";var c=`MemWord-V${o}`,i=new RegExp(`^${a}/(pub|api|admin)/`),r=async()=>{for(let e of await caches.keys())e!==c&&await caches.delete(e);await self.clients.claim()},l=async(e,s)=>{await(await caches.open(c)).put(e,s)},p=async e=>{if(console.log(e.url),i.test(e.url))return await fetch(e);let s=await caches.match(e);if(s)return s;let t=await fetch(e);return t.ok&&l(e,t.clone()),t};self.oninstall=e=>e.waitUntil(self.skipWaiting());self.onactivate=e=>e.waitUntil(r());self.onfetch=e=>e.respondWith(p(e.request));
+// lib/common.ts
+var API_URL = "https://memword.micinfotech.com";
+
+// package.json
+var version = "0.7.0";
+
+// lib/worker.ts
+var cacheName = `MemWord-V${version}`;
+var apiRegex = new RegExp(`^${API_URL}/(pub|api|admin)/`);
+var handleActivate = async () => {
+  for (const cacheKey of await caches.keys()) if (cacheKey !== cacheName) await caches.delete(cacheKey);
+  await self.clients.claim();
+};
+var putInCache = async (request, response) => {
+  await (await caches.open(cacheName)).put(request, response);
+};
+var handleFetch = async (req) => {
+  console.log(req.url);
+  if (apiRegex.test(req.url)) return await fetch(req);
+  const cres = await caches.match(req);
+  if (cres) return cres;
+  const nresp = await fetch(req);
+  if (nresp.ok) putInCache(req, nresp.clone());
+  return nresp;
+};
+self.oninstall = (e) => e.waitUntil(self.skipWaiting());
+self.onactivate = (e) => e.waitUntil(handleActivate());
+self.onfetch = (e) => e.respondWith(handleFetch(e.request));
+//# sourceMappingURL=worker.js.map
