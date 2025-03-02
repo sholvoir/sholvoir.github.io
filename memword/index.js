@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.1";
+var version = "0.7.2";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -1919,6 +1919,7 @@ var studied = (word, level) => new Promise((resolve, reject) => run(reject, (db2
 
 // lib/mem.ts
 var dictExpire = 7 * 24 * 60 * 60;
+var setStats = (stats2) => localStorage.setItem("_stats", JSON.stringify(stats2));
 var getStats2 = () => {
   const result = localStorage.getItem("_stats");
   if (result) {
@@ -2185,23 +2186,9 @@ var vocabulary = [];
 var backs = [];
 var isAdmin = () => user.value == "hua";
 var hideTips = () => tips.value = "";
-var go = (d4) => {
-  if (d4) {
-    backs.push(loca.value);
-    loca.value = d4;
-  } else {
-    d4 = backs.pop();
-    loca.value = d4 ?? (user.value ? "#home" : "#about");
-  }
-};
-var showTips = (content, autohide = true) => {
-  tips.value = content;
-  if (autohide) setTimeout(hideTips, 3e3);
-};
-var totalStats2 = async () => {
-  const a4 = await totalStats();
-  if (a4) stats.value = a4;
-};
+var go = (d4) => loca.value = d4 ? (backs.push(loca.value), d4) : backs.pop() ?? (user.value ? "#home" : "#about");
+var showTips = (content, autohide = true) => (tips.value = content, autohide && setTimeout(hideTips, 3e3));
+var totalStats2 = async () => setStats(stats.value = await totalStats());
 var startStudy = async (wl, bl) => {
   loading.value = true;
   const item = await getEpisode2(wlid.value = wl, blevel.value = bl);
@@ -2963,18 +2950,22 @@ var study_default = () => {
   };
   const handleTouchStart = (e4) => {
     e4.stopPropagation();
+    e4.preventDefault();
     isPhaseAnswer.value && (endY.value = startY.value = e4.touches[0].clientY);
   };
   const handleTouchMove = (e4) => {
     e4.stopPropagation();
+    e4.preventDefault();
     isPhaseAnswer.value && (endY.value = e4.touches[0].clientY);
   };
   const handleTouchCancel = (e4) => {
     e4.stopPropagation();
+    e4.preventDefault();
     isPhaseAnswer.value && (endY.value = startY.value = 0);
   };
   const handleTouchEnd = async (e4) => {
     e4.stopPropagation();
+    e4.preventDefault();
     if (isPhaseAnswer.value) {
       const h4 = e4.currentTarget.scrollHeight + 60;
       const diff = endY.value - startY.value;
@@ -3039,7 +3030,7 @@ var study_default = () => {
               class: "i-material-symbols-volume-up text-blue"
             }
           ),
-          /* @__PURE__ */ u4("div", { class: "grow text-center", children: sprint.value > 0 ? sprint.value : "" }),
+          /* @__PURE__ */ u4("div", { class: "grow text-center text-xl", children: sprint.value > 0 ? sprint.value : "" }),
           /* @__PURE__ */ u4(
             button_base_default,
             {
