@@ -913,6 +913,52 @@ function useSignalEffect(i5) {
   }, []);
 }
 
+// lib/istat.ts
+var statsFormat = "0.2.1";
+var newAggr = () => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var initStat = (time, wlid2, disc) => ({
+  time,
+  total: newAggr(),
+  task: newAggr(),
+  wlid: wlid2,
+  disc
+});
+var initStats = () => ({
+  format: statsFormat,
+  stats: []
+});
+var addTaskToStat = (stat, item) => {
+  stat.total[item.level]++;
+  if (item.next < stat.time) stat.task[item.level]++;
+};
+var BLevelName = ["\u672A\u5B66", "\u65B0\u5B66", "\u4E2D\u7B49", "\u719F\u6089", "\u719F\u7EC3", "\u5B8C\u6210"];
+var aggrToBAggr = (aggr) => [
+  aggr[0],
+  aggr[1] + aggr[2] + aggr[3] + aggr[4] + aggr[5],
+  aggr[6] + aggr[7] + aggr[8] + aggr[9],
+  aggr[10] + aggr[11] + aggr[12],
+  aggr[13] + aggr[14],
+  aggr[15]
+];
+var isBLevelIncludesLevel = (blevel2, level) => {
+  switch (blevel2) {
+    case 0:
+      return level <= 0;
+    case 1:
+      return level >= 1 && level <= 5;
+    case 2:
+      return level >= 6 && level <= 9;
+    case 3:
+      return level >= 10 && level <= 12;
+    case 4:
+      return level >= 13 && level <= 14;
+    case 5:
+      return level >= 15;
+    default:
+      return true;
+  }
+};
+
 // node_modules/@sholvoir/generic/http.js
 var STATUS_CODE;
 (function(STATUS_CODE2) {
@@ -1637,52 +1683,6 @@ var updateWordlist = async (wlid2) => {
 };
 var getClientWordlist = async (wlid2) => wordlists.has(wlid2) ? (updateWordlist(wlid2), wordlists.get(wlid2)) : (await updateWordlist(wlid2), wordlists.get(wlid2));
 
-// lib/istat.ts
-var statsFormat = "0.2.1";
-var newAggr = () => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var initStat = (time, wlid2, disc) => ({
-  time,
-  total: newAggr(),
-  task: newAggr(),
-  wlid: wlid2,
-  disc
-});
-var initStats = () => ({
-  format: statsFormat,
-  stats: []
-});
-var addTaskToStat = (stat, item) => {
-  stat.total[item.level]++;
-  if (item.next < stat.time) stat.task[item.level]++;
-};
-var BLevelName = ["\u672A\u5B66", "\u65B0\u5B66", "\u4E2D\u7B49", "\u719F\u6089", "\u719F\u7EC3", "\u5B8C\u6210"];
-var aggrToBAggr = (aggr) => [
-  aggr[0],
-  aggr[1] + aggr[2] + aggr[3] + aggr[4] + aggr[5],
-  aggr[6] + aggr[7] + aggr[8] + aggr[9],
-  aggr[10] + aggr[11] + aggr[12],
-  aggr[13] + aggr[14],
-  aggr[15]
-];
-var isBLevelIncludesLevel = (blevel2, level) => {
-  switch (blevel2) {
-    case 0:
-      return level <= 0;
-    case 1:
-      return level >= 1 && level <= 5;
-    case 2:
-      return level >= 6 && level <= 9;
-    case 3:
-      return level >= 10 && level <= 12;
-    case 4:
-      return level >= 13 && level <= 14;
-    case 5:
-      return level >= 15;
-    default:
-      return true;
-  }
-};
-
 // lib/iitem.ts
 var neverItem = (word, time) => ({ word, last: time, next: time, level: 0 });
 var newItem = (dict) => {
@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.2";
+var version = "0.7.3";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -1919,15 +1919,6 @@ var studied = (word, level) => new Promise((resolve, reject) => run(reject, (db2
 
 // lib/mem.ts
 var dictExpire = 7 * 24 * 60 * 60;
-var setStats = (stats2) => localStorage.setItem("_stats", JSON.stringify(stats2));
-var getStats2 = () => {
-  const result = localStorage.getItem("_stats");
-  if (result) {
-    const stats2 = JSON.parse(result);
-    if (stats2.format == statsFormat) return stats2;
-  }
-  return initStats();
-};
 var auth;
 var authHead = () => ({ "Authorization": `Bearer ${auth}` });
 var getAuth = async () => auth ?? (auth = await getMeta("_auth"));
@@ -1949,6 +1940,7 @@ var submitIssues = async () => {
     await deleteIssue(issue.id);
   }
 };
+var setting = defaultSetting();
 var getUser = async () => {
   if (!auth) await getAuth();
   if (auth) return JWT.decode(auth)[1]?.aud;
@@ -1980,31 +1972,18 @@ var deleteDict = async (word) => {
     return false;
   }
 };
-var getSetting = async () => {
-  let setting = await getMeta("_setting");
-  if (setting) return setting;
-  setting = defaultSetting();
+var syncSetting = async (cSetting) => {
+  if (cSetting && cSetting.version > setting.version) setting = cSetting;
+  const lSetting = await getMeta("_setting");
+  if (lSetting && lSetting.version > setting.version) setting = lSetting;
+  else await setMeta("_setting", setting);
   try {
     const res = await fetch(`${API_URL}/api/setting`, requestInit(setting, "POST", authHead()));
-    if (!res.ok) return setting;
-    setting = await res.json();
-    setMeta("_setting", setting);
+    if (!res.ok) return;
+    const sSetting = await res.json();
+    if (sSetting.version > setting.version)
+      await setMeta("_setting", setting = sSetting);
   } catch {
-  }
-  return setting;
-};
-var setSetting = async (cSetting) => {
-  const lSetting = await getMeta("_setting");
-  if (!lSetting || cSetting.version > lSetting.version) {
-    await setMeta("_setting", cSetting);
-    try {
-      const res = await fetch(`${API_URL}/api/setting`, requestInit(cSetting, "POST", authHead()));
-      if (!res.ok) return;
-      const serverSetting = await res.json();
-      if (serverSetting.version > cSetting.version)
-        await setMeta("_setting", serverSetting);
-    } catch {
-    }
   }
 };
 var search = async (word) => {
@@ -2068,11 +2047,9 @@ var submitIssue = async (issue) => {
   submitIssues();
 };
 var totalStats = async () => {
-  const setting = await getMeta("_setting") ?? defaultSetting();
-  const wls = [];
-  for (const wlid2 of setting.books) wls.push(await getClientWordlist(wlid2));
-  const stats2 = await getStats(wls);
-  return { format: statsFormat, stats: stats2 };
+  const cwls = [];
+  for (const wlid2 of setting.books) cwls.push(await getClientWordlist(wlid2));
+  return { format: statsFormat, stats: await getStats(cwls) };
 };
 var getVocabulary = async () => {
   const wordlist = await getClientWordlist("system/vocabulary");
@@ -2085,12 +2062,12 @@ var getServerWordlist = async () => {
     const time = now();
     await setMeta("_wl-time", time);
     const deleted = await syncWordlists(wls);
-    const setting = await getMeta("_setting");
-    const nbooks = setting.books.filter((wlid2) => !deleted.has(wlid2));
-    if (nbooks.length != setting.books.length) {
-      setting.books = nbooks;
-      setting.version = time;
-      await setMeta("_setting", setting);
+    const setting2 = await getMeta("_setting");
+    const nbooks = setting2.books.filter((wlid2) => !deleted.has(wlid2));
+    if (nbooks.length != setting2.books.length) {
+      setting2.books = nbooks;
+      setting2.version = time;
+      await setMeta("_setting", setting2);
     }
   })();
   return wls;
@@ -2171,8 +2148,9 @@ var signout = async () => {
 var getB2File = (fileName) => fetch(`${B2_BASE_URL}/${fileName}`);
 
 // src/app.tsx
+var backs = [];
 var user = d2("");
-var stats = d2(getStats2());
+var stats = d2(initStats());
 var tips = d2("");
 var isPhaseAnswer = d2(false);
 var citem = d2();
@@ -2183,12 +2161,11 @@ var name = d2("");
 var loading = d2(false);
 var loca = d2("#about");
 var vocabulary = [];
-var backs = [];
+var totalStats2 = async () => stats.value = await totalStats();
 var isAdmin = () => user.value == "hua";
 var hideTips = () => tips.value = "";
 var go = (d4) => loca.value = d4 ? (backs.push(loca.value), d4) : backs.pop() ?? (user.value ? "#home" : "#about");
 var showTips = (content, autohide = true) => (tips.value = content, autohide && setTimeout(hideTips, 3e3));
-var totalStats2 = async () => setStats(stats.value = await totalStats());
 var startStudy = async (wl, bl) => {
   loading.value = true;
   const item = await getEpisode2(wlid.value = wl, blevel.value = bl);
@@ -2206,6 +2183,7 @@ var startStudy = async (wl, bl) => {
 var init = async () => {
   if (user.value = await getUser() ?? "") {
     go("#home");
+    await syncSetting();
     const v4 = await getVocabulary();
     if (v4) vocabulary = v4;
     await syncTasks();
@@ -2608,13 +2586,12 @@ var setting_default = () => {
     go("#home");
   };
   const handleOKClick = async () => {
-    await setSetting({ format: settingFormat, version: now(), books: mwls.value.map((wl) => wl.wlid) });
+    await syncSetting({ format: settingFormat, version: now(), books: mwls.value.map((wl) => wl.wlid) });
     await totalStats2();
     go();
   };
   const init2 = async () => {
     wls.value = (await getServerWordlist()).filter((wl) => wl.wlid.startsWith("common")).sort(compareWL);
-    const setting = await getSetting();
     mwls.value = await getWordlists((wl) => setting.books.includes(wl.wlid));
   };
   useSignalEffect(() => {
