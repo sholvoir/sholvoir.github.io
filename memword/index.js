@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.4";
+var version = "0.7.5";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2304,7 +2304,7 @@ var stat_default = ({ stat }) => {
       /* @__PURE__ */ u4(
         "div",
         {
-          class: "relative bg-slate-300 dark:bg-slate-700 h-6 py-1 w-full hover:cursor-pointer",
+          class: "relative bg-[var(--bg-title)] h-6 py-1 w-full hover:cursor-pointer",
           onClick: () => startStudy(stat.wlid, blevel2),
           children: [
             /* @__PURE__ */ u4("div", { class: "my-auto h-4 bg-slate-400", style: { width: `${width ? total * 100 / width : 100}%` }, children: /* @__PURE__ */ u4("div", { class: "ml-auto h-full bg-orange-500", style: { width: `${total ? task * 100 / total : 0}%` } }) }),
@@ -2610,7 +2610,7 @@ var setting_default = () => {
     ] }),
     /* @__PURE__ */ u4("fieldset", { class: "px-2 border rounded max-h-[50%] grow overflow-y-auto", children: [
       /* @__PURE__ */ u4("legend", { children: "\u53EF\u7528\u7684\u8BCD\u4E66" }),
-      /* @__PURE__ */ u4(list_default, { cindex, options: wls.value.map((wl) => wl.disc ?? wl.wlid), activeClass: "bg-[var(--bg-tail)]" })
+      /* @__PURE__ */ u4(list_default, { cindex, options: wls.value.map((wl) => wl.disc ?? wl.wlid), activeClass: "bg-[var(--bg-title)]" })
     ] }),
     /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: handleAddSubClick, children: "\u6DFB\u52A0\u8BA2\u9605" }),
@@ -2618,7 +2618,7 @@ var setting_default = () => {
     ] }),
     /* @__PURE__ */ u4("fieldset", { class: "px-2 border rounded max-h-[50%] grow overflow-y-auto", children: [
       /* @__PURE__ */ u4("legend", { children: "\u6211\u8BA2\u9605\u7684\u8BCD\u4E66" }),
-      /* @__PURE__ */ u4(list_default, { cindex: mindex, options: mwls.value.map((wl) => wl.disc ?? wl.wlid), activeClass: "bg-[var(--bg-tail)]" })
+      /* @__PURE__ */ u4(list_default, { cindex: mindex, options: mwls.value.map((wl) => wl.disc ?? wl.wlid), activeClass: "bg-[var(--bg-title)]" })
     ] }),
     /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: handleAddTaskClick, children: "\u6DFB\u52A0\u4EFB\u52A1" }),
@@ -2674,7 +2674,7 @@ var tab_default = ({ class: className, cindex, children }) => {
         i5
       )
     ) }),
-    /* @__PURE__ */ u4("section", { class: `relative grow p-2 overflow-y-auto ${className ?? ""}`, children: childs[cindex.value] })
+    /* @__PURE__ */ u4("section", { class: `grow p-2 overflow-y-auto ${className ?? ""}`, children: childs[cindex.value] })
   ] }) : /* @__PURE__ */ u4(k, {});
 };
 
@@ -2731,11 +2731,12 @@ var ecard_default = ({ card, class: className }) => {
         }
       ),
       /* @__PURE__ */ u4(
-        button_base_default,
+        button_ripple_default,
         {
-          class: "button btn-normal ml-2 i-material-symbols-chevron-right",
+          class: "button ml-2",
           onClick: handlePlayClick,
-          disabled: !sound.value
+          disabled: !sound.value,
+          children: /* @__PURE__ */ u4("span", { class: "text-[150%] i-material-symbols-chevron-right" })
         }
       )
     ] }),
@@ -2795,7 +2796,7 @@ function Lookup() {
       /* @__PURE__ */ u4(
         button_ripple_default,
         {
-          class: "button btn-normal",
+          class: "grow button btn-normal",
           disabled: !word.value,
           onClick: handleAddCardClick,
           children: "Add Card"
@@ -2804,7 +2805,7 @@ function Lookup() {
       /* @__PURE__ */ u4(
         button_ripple_default,
         {
-          class: "button btn-normal",
+          class: "grow button btn-normal",
           disabled: !word.value || cards.value.length <= 1,
           onClick: handleDeleteCardClick,
           children: "Delete Card"
@@ -2813,7 +2814,7 @@ function Lookup() {
       /* @__PURE__ */ u4(
         button_ripple_default,
         {
-          class: "button btn-normal",
+          class: "grow button btn-normal",
           disabled: !word.value,
           onClick: handleDeleteClick,
           children: "Delete"
@@ -2822,7 +2823,7 @@ function Lookup() {
       /* @__PURE__ */ u4(
         button_ripple_default,
         {
-          class: "button btn-normal",
+          class: "grow button btn-normal",
           disabled: !word.value,
           onClick: handleUpdateClick,
           children: "Update"
@@ -2886,7 +2887,11 @@ var study_default = () => {
   const cindex = useSignal(0);
   const startY = useSignal(0);
   const endY = useSignal(0);
+  const played = useSignal(false);
   const player = A2(null);
+  useSignalEffect(() => {
+    cindex.value, played.value = false;
+  });
   const handleIKnown = (level) => studied2(citem.value.word, level);
   const studyNext = async () => {
     if (++sprint.value <= 0) return finish();
@@ -2894,6 +2899,7 @@ var study_default = () => {
     if (!item) return finish();
     citem.value = item;
     isPhaseAnswer.value = false;
+    cindex.value = 0;
   };
   const continueMove = async (y5, max2) => {
     endY.value += y5;
@@ -2967,21 +2973,21 @@ var study_default = () => {
           await continueMove(-60, max2);
         }
         await studyNext();
-        endY.value = startY.value = 0;
-      } else {
-        endY.value = startY.value = 0;
-        if (Math.abs(diff) < 5) player.current?.play();
-      }
-    } else {
-      endY.value = startY.value = 0;
-      isPhaseAnswer.value = true;
-      player.current?.play();
-    }
+      } else if (Math.abs(diff) < 5) handleClick();
+    } else handleClick();
+    endY.value = startY.value = 0;
   };
-  const handleClick = (e4) => {
-    e4.stopPropagation();
+  const handleClick = async (e4) => {
+    e4?.stopPropagation();
+    const cardsN = citem.value?.cards?.length ?? 0;
+    if (cardsN == 0) return;
     if (!isPhaseAnswer.value) isPhaseAnswer.value = true;
-    player.current?.play();
+    else if (!played.value) player.current?.play();
+    else if (cindex.value < cardsN - 1) cindex.value++;
+    else cindex.value = 0;
+  };
+  const handlePlayEnded = () => {
+    if ((citem.value?.cards?.length ?? 0) > 1) played.value = true;
   };
   return /* @__PURE__ */ u4(dialog_default, { title: "\u5B66\u4E60", onBackClick: finish, children: /* @__PURE__ */ u4(
     "div",
@@ -3055,11 +3061,9 @@ var study_default = () => {
             onTouchCancel: handleTouchCancel,
             onClick: handleClick,
             children: [
-              /* @__PURE__ */ u4("div", { class: "pb-2 flex gap-2 flex-wrap justify-between text-4xl font-bold", children: (console.log(citem.value), citem.value.word) }),
-              isPhaseAnswer.value && /* @__PURE__ */ u4("div", { class: "grow h-0 flex flex-col", children: [
-                /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: citem.value.cards?.map((card, i5) => /* @__PURE__ */ u4(scard_default, { card }, i5)) }),
-                /* @__PURE__ */ u4("audio", { ref: player, src: citem.value.cards?.at(cindex.value)?.sound ? `${API_URL}/sound?q=${encodeURIComponent(citem.value.cards[cindex.value].sound)}` : "" })
-              ] })
+              /* @__PURE__ */ u4("div", { class: "pb-2 text-4xl font-bold", children: citem.value.word }),
+              isPhaseAnswer.value && (citem.value.cards?.length ?? 0 > 1 ? /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: citem.value.cards?.map((card, i5) => /* @__PURE__ */ u4(scard_default, { card }, i5)) }) : /* @__PURE__ */ u4(scard_default, { card: citem.value.cards?.[0] })),
+              /* @__PURE__ */ u4("audio", { ref: player, onEnded: handlePlayEnded, src: citem.value.cards?.at(cindex.value)?.sound ? `${API_URL}/sound?q=${encodeURIComponent(citem.value.cards[cindex.value].sound)}` : "" })
             ]
           }
         )
