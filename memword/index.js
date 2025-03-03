@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.6";
+var version = "0.7.7";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2791,7 +2791,7 @@ function Lookup() {
         }
       )
     ] }),
-    /* @__PURE__ */ u4("div", { class: "flex flex-col grow", children: /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: cards.value.map((card, i5) => /* @__PURE__ */ u4(ecard_default, { card }, `${word}${i5}`)) }) }),
+    /* @__PURE__ */ u4("div", { class: "flex flex-col grow", children: /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: cards.value.map((card, i5) => /* @__PURE__ */ u4(ecard_default, { card }, i5)) }) }),
     isAdmin() && /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
       /* @__PURE__ */ u4(
         button_ripple_default,
@@ -2992,12 +2992,12 @@ var study_default = () => {
   return /* @__PURE__ */ u4(dialog_default, { title: "\u5B66\u4E60", onBackClick: finish, children: /* @__PURE__ */ u4(
     "div",
     {
-      class: `relative grow flex flex-col p-2 outline-none`,
+      class: `relative grow flex flex-col outline-none`,
       tabIndex: -1,
       onKeyUp: handleKeyPress,
       style: { top: `${endY.value - startY.value}px` },
       children: [
-        /* @__PURE__ */ u4("div", { class: "flex gap-4 text-[150%] items-center", children: [
+        /* @__PURE__ */ u4("div", { class: "p-2 flex gap-4 text-[150%] items-center", children: [
           /* @__PURE__ */ u4(
             button_base_default,
             {
@@ -3054,7 +3054,7 @@ var study_default = () => {
         /* @__PURE__ */ u4(
           "div",
           {
-            class: "grow pb-4 flex flex-col",
+            class: "grow px-2 pb-2 flex flex-col",
             onTouchStart: handleTouchStart,
             onTouchMove: handleTouchMove,
             onTouchEnd: handleTouchEnd,
@@ -3062,7 +3062,7 @@ var study_default = () => {
             onClick: handleClick,
             children: [
               /* @__PURE__ */ u4("div", { class: "pb-2 text-4xl font-bold", children: citem.value.word }),
-              isPhaseAnswer.value && ((citem.value.cards?.length ?? 0) > 1 ? /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: citem.value.cards?.map((card, i5) => /* @__PURE__ */ u4(scard_default, { card }, i5)) }) : /* @__PURE__ */ u4(scard_default, { card: citem.value.cards?.[0] })),
+              isPhaseAnswer.value && (citem.value.cards?.length ?? 0 > 1 ? /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: citem.value.cards?.map((card, i5) => /* @__PURE__ */ u4(scard_default, { card }, i5)) }) : /* @__PURE__ */ u4(scard_default, { card: citem.value.cards?.[0] })),
               /* @__PURE__ */ u4("audio", { ref: player, onEnded: handlePlayEnded, src: citem.value.cards?.at(cindex.value)?.sound ? `${API_URL}/sound?q=${encodeURIComponent(citem.value.cards[cindex.value].sound)}` : "" })
             ]
           }
