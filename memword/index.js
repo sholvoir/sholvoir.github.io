@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.9";
+var version = "0.7.10";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2240,7 +2240,7 @@ var dialog_default = ({
     /* @__PURE__ */ u4("div", { class: "grow font-bold text-center [app-region:drag]", children: tips.value || title }),
     /* @__PURE__ */ u4("div", { class: "w-6 [app-region:no-drag]", children: rightElem ?? (onMenuClick && /* @__PURE__ */ u4(button_base_default, { class: "w-full h-6 i-heroicons-outline-dots-horizontal", onClick: onMenuClick })) })
   ] }),
-  /* @__PURE__ */ u4("div", { class: `body grow overflow-y-auto flex flex-col ${className ?? ""}`, children })
+  /* @__PURE__ */ u4("div", { class: `body grow h-0 flex flex-col ${className ?? ""}`, children })
 ] });
 
 // components/button-ripple.tsx
@@ -2679,7 +2679,7 @@ var tab_default = ({ class: className, cindex, children }) => {
         i5
       )
     ) }),
-    /* @__PURE__ */ u4("section", { class: `grow p-2 overflow-y-auto ${className ?? ""}`, children: childs[cindex.value] })
+    /* @__PURE__ */ u4("section", { class: `grow h-0 p-2 overflow-y-auto ${className ?? ""}`, children: childs[cindex.value] })
   ] }) : /* @__PURE__ */ u4(k, {});
 };
 
@@ -2997,12 +2997,12 @@ var study_default = () => {
   return /* @__PURE__ */ u4(dialog_default, { title: "\u5B66\u4E60", onBackClick: finish, children: /* @__PURE__ */ u4(
     "div",
     {
-      class: `relative grow p-2 flex flex-col outline-none`,
+      class: `relative grow h-0 p-2 flex flex-col outline-none`,
       tabIndex: -1,
       onKeyUp: handleKeyPress,
       style: { top: `${endY.value - startY.value}px` },
       children: [
-        /* @__PURE__ */ u4("div", { class: "p-2 flex gap-4 text-[150%] items-center", children: [
+        /* @__PURE__ */ u4("div", { class: "flex gap-4 text-[150%] items-center", children: [
           /* @__PURE__ */ u4(
             button_base_default,
             {
@@ -3059,15 +3059,15 @@ var study_default = () => {
         /* @__PURE__ */ u4(
           "div",
           {
-            class: "grow pb-3 flex flex-col",
+            class: "grow h-0 pb-3 flex flex-col",
             onTouchStart: handleTouchStart,
             onTouchMove: handleTouchMove,
             onTouchEnd: handleTouchEnd,
             onTouchCancel: handleTouchCancel,
             onClick: handleClick,
             children: [
-              /* @__PURE__ */ u4("div", { class: "pb-2 text-4xl font-bold", children: citem.value.word }),
-              isPhaseAnswer.value && ((citem.value.cards?.length ?? 0) > 1 ? /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: citem.value.cards?.map((card, i5) => /* @__PURE__ */ u4(scard_default, { card }, `${citem.value?.word}${i5}`)) }) : /* @__PURE__ */ u4(scard_default, { card: citem.value.cards?.[0] })),
+              /* @__PURE__ */ u4("div", { class: "py-2 text-4xl font-bold", children: citem.value.word }),
+              isPhaseAnswer.value && ((citem.value.cards?.length ?? 0) > 1 ? /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: citem.value.cards?.map((card, i5) => /* @__PURE__ */ u4(scard_default, { card }, `${citem.value?.word}${i5}`)) }) : /* @__PURE__ */ u4("div", { class: "grow h-0 overflow-y-auto", children: /* @__PURE__ */ u4(scard_default, { card: citem.value.cards?.[0] }) })),
               /* @__PURE__ */ u4("audio", { ref: player, onEnded: handlePlayEnded, src: citem.value.cards?.at(cindex.value)?.sound ? `${API_URL}/sound?q=${encodeURIComponent(citem.value.cards[cindex.value].sound)}` : "" })
             ]
           }
