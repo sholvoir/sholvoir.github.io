@@ -2,7 +2,7 @@
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.8";
+var version = "0.7.9";
 
 // lib/worker.ts
 var cacheName = `MemWord-V${version}`;

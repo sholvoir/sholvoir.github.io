@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.8";
+var version = "0.7.9";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2464,11 +2464,11 @@ var about_default = () => /* @__PURE__ */ u4(dialog_default, { title: "\u5FEB\u4
   /* @__PURE__ */ u4("div", { children: [
     /* @__PURE__ */ u4("h1", { children: "\u5F00\u59CB\u5B66\u4E60" }),
     /* @__PURE__ */ u4("p", { children: [
-      "\u4F7F\u7528\u4F60\u7684\u7535\u5B50\u90AE\u4EF6\uFF0C\u5355\u51FB",
+      "\u4F7F\u7528\u4F60\u7684\u624B\u673A\uFF0C\u5355\u51FB",
       /* @__PURE__ */ u4(
         button_ripple_default,
         {
-          class: "button btn-prime",
+          class: "button bg-orange-300 text-slate-800",
           title: "login",
           onClick: () => go("#signup"),
           children: "\u767B\u5F55"
@@ -2488,9 +2488,14 @@ var about_default = () => /* @__PURE__ */ u4(dialog_default, { title: "\u5FEB\u4
   /* @__PURE__ */ u4("div", { children: [
     /* @__PURE__ */ u4("h1", { children: "\u684C\u9762" }),
     /* @__PURE__ */ u4("p", { children: [
-      "*\u63D0\u793A\u4E8C\uFF1A\u8BF7\u4F7F\u7528\u300C\u5171\u4EAB\u300D-\u300C\u6DFB\u52A0\u5230\u4E3B\u5C4F\u5E55\u300D\uFF08iOS\uFF09\u6216\u300C...\u300D-\u300C\u5B89\u88C5\u5E94\u7528\u300D\uFF08Android\uFF09\u5B89\u88C5 ",
+      "*\u63D0\u793A\u4E8C(iOS): \u8BF7\u4F7F\u7528\u300C\u5171\u4EAB\u300D-\u300C\u6DFB\u52A0\u5230\u4E3B\u5C4F\u5E55\u300D\u5B89\u88C5 ",
       /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
       " \u5230\u684C\u9762\uFF0C\u4EE5\u4FBF\u4E0B\u6B21\u76F4\u63A5\u70B9\u51FB\u8FDB\u5165\u3002"
+    ] }),
+    /* @__PURE__ */ u4("p", { children: [
+      "*\u63D0\u793A\u4E09(Android): \u8BF7\u4F7F\u7528\u300C...\u300D-\u300C\u5B89\u88C5\u5E94\u7528\u300D\u5B89\u88C5 ",
+      /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
+      " \u5230\u684C\u9762\u3002"
     ] })
   ] })
 ] }) });
