@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.3";
+var version = "0.7.4";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2679,20 +2679,24 @@ var tab_default = ({ class: className, cindex, children }) => {
 };
 
 // src/ecard.tsx
-var ecard_default = ({ card }) => {
+var ecard_default = ({ card, class: className }) => {
+  const phonetic = useSignal(card.phonetic);
+  const trans = useSignal(card.trans);
+  const def = useSignal(card.def);
+  const sound = useSignal(card.sound);
   const player = A2(null);
   const handlePlayClick = () => {
-    if (!card?.sound) showTips("no sound to play!");
+    if (!sound.value) showTips("no sound to play!");
     else player.current?.play();
   };
-  return card ? /* @__PURE__ */ u4("div", { class: "flex flex-col h-full gap-2", children: [
+  return /* @__PURE__ */ u4("div", { class: `flex flex-col h-full gap-2 ${className ?? ""}`, children: [
     /* @__PURE__ */ u4(
       "input",
       {
         name: "phonetic",
         placeholder: "phonetic",
-        value: card.phonetic ?? "",
-        onChange: (e4) => card.phonetic = e4.currentTarget.value
+        value: phonetic,
+        onInput: (e4) => card.phonetic = phonetic.value = e4.currentTarget.value
       }
     ),
     /* @__PURE__ */ u4(
@@ -2701,8 +2705,8 @@ var ecard_default = ({ card }) => {
         name: "trans",
         placeholder: "trans",
         class: "h-32 grow",
-        value: card.trans ?? "",
-        onChange: (e4) => card.trans = e4.currentTarget.value
+        value: trans,
+        onInput: (e4) => card.trans = trans.value = e4.currentTarget.value
       }
     ),
     /* @__PURE__ */ u4(
@@ -2711,8 +2715,8 @@ var ecard_default = ({ card }) => {
         name: "def",
         placeholder: "def",
         class: "h-32 grow",
-        value: card.def ?? "",
-        onChange: (e4) => card.def = e4.currentTarget.value
+        value: def,
+        onInput: (e4) => card.def = def.value = e4.currentTarget.value
       }
     ),
     /* @__PURE__ */ u4("div", { class: "flex", children: [
@@ -2722,14 +2726,21 @@ var ecard_default = ({ card }) => {
           name: "sound",
           placeholder: "sound",
           class: "h-32 grow",
-          value: card.sound ?? "",
-          onChange: (e4) => card.sound = e4.currentTarget.value
+          value: sound,
+          onInput: (e4) => card.sound = sound.value = e4.currentTarget.value
         }
       ),
-      /* @__PURE__ */ u4(button_base_default, { class: "button btn-normal ml-2", onClick: handlePlayClick, disabled: !card.sound, children: "\u2BC8" })
+      /* @__PURE__ */ u4(
+        button_base_default,
+        {
+          class: "button btn-normal ml-2 i-material-symbols-chevron-right",
+          onClick: handlePlayClick,
+          disabled: !sound.value
+        }
+      )
     ] }),
-    /* @__PURE__ */ u4("audio", { ref: player, src: card.sound })
-  ] }) : void 0;
+    /* @__PURE__ */ u4("audio", { ref: player, src: sound })
+  ] });
 };
 
 // src/lookup.tsx
@@ -2780,7 +2791,7 @@ function Lookup() {
       )
     ] }),
     /* @__PURE__ */ u4("div", { class: "flex flex-col grow", children: /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: cards.value.map((card, i5) => /* @__PURE__ */ u4(ecard_default, { card }, i5)) }) }),
-    isAdmin() && /* @__PURE__ */ u4("div", { class: "flex gap-2", children: [
+    isAdmin() && /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
       /* @__PURE__ */ u4(
         button_ripple_default,
         {
