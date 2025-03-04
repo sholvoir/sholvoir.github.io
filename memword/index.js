@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.13";
+var version = "0.7.14";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -3012,7 +3012,7 @@ var study_default = () => {
     if (cardsN == 0) return;
     if (!isPhaseAnswer.value) isPhaseAnswer.value = true;
     else if (cardsN == 1) player.current?.play();
-    if (cindex.value < cardsN - 1) cindex.value++;
+    else if (cindex.value < cardsN - 1) cindex.value++;
     else cindex.value = 0;
   };
   return /* @__PURE__ */ u4(dialog_default, { title: "\u5B66\u4E60", onBackClick: finish, children: /* @__PURE__ */ u4(
