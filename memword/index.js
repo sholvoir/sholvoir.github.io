@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.12";
+var version = "0.7.13";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2437,7 +2437,7 @@ var about_default = () => /* @__PURE__ */ u4(
   dialog_default,
   {
     title: "\u5FEB\u4E50\u80CC\u5355\u8BCD",
-    class: "about flex flex-col pb-4",
+    class: "about flex flex-col pb-4 font-extrabold",
     onBackClick: user.value ? () => go("#home") : void 0,
     children: [
       /* @__PURE__ */ u4("div", { children: [
@@ -2532,27 +2532,35 @@ var menu_default = () => {
     await totalStats2();
     go();
   };
-  return /* @__PURE__ */ u4(dialog_default, { class: "menu p-2 flex flex-col gap-1", title: "\u83DC\u5355", onBackClick: () => go(), children: [
-    isAdmin() && /* @__PURE__ */ u4(k, { children: [
-      /* @__PURE__ */ u4("menu", { title: "#lookup", onClick: open, children: "\u8F9E\u5178\u7F16\u8F91" }),
-      /* @__PURE__ */ u4("div", {}),
-      /* @__PURE__ */ u4("menu", { title: "#syswordlist", onClick: open, children: "\u7CFB\u7EDF\u8BCD\u4E66" }),
-      /* @__PURE__ */ u4("div", {})
-    ] }),
-    /* @__PURE__ */ u4("menu", { title: "#issue", onClick: open, children: "\u62A5\u544A\u95EE\u9898" }),
-    /* @__PURE__ */ u4("div", {}),
-    /* @__PURE__ */ u4("menu", { onClick: down, children: "\u5B8C\u5168\u540C\u6B65" }),
-    /* @__PURE__ */ u4("div", {}),
-    /* @__PURE__ */ u4("menu", { title: "#wordlists", onClick: open, children: "\u6211\u7684\u8BCD\u4E66" }),
-    /* @__PURE__ */ u4("div", {}),
-    /* @__PURE__ */ u4("menu", { title: "#setting", onClick: open, children: "\u8BBE\u7F6E" }),
-    /* @__PURE__ */ u4("div", {}),
-    /* @__PURE__ */ u4("menu", { title: "#about", onClick: open, children: "\u5173\u4E8E" }),
-    /* @__PURE__ */ u4("div", {}),
-    /* @__PURE__ */ u4("menu", { title: "#help", onClick: open, children: "\u5E2E\u52A9" }),
-    /* @__PURE__ */ u4("div", {}),
-    /* @__PURE__ */ u4("menu", { title: "#logout", onClick: open, children: "\u767B\u51FA" })
-  ] });
+  return /* @__PURE__ */ u4(
+    dialog_default,
+    {
+      class: "menu p-2 flex flex-col gap-1",
+      title: "\u83DC\u5355",
+      onBackClick: () => go(),
+      children: [
+        isAdmin() && /* @__PURE__ */ u4(k, { children: [
+          /* @__PURE__ */ u4("menu", { title: "#lookup", onClick: open, children: "\u8F9E\u5178\u7F16\u8F91" }),
+          /* @__PURE__ */ u4("div", {}),
+          /* @__PURE__ */ u4("menu", { title: "#syswordlist", onClick: open, children: "\u7CFB\u7EDF\u8BCD\u4E66" }),
+          /* @__PURE__ */ u4("div", {})
+        ] }),
+        /* @__PURE__ */ u4("menu", { title: "#issue", onClick: open, children: "\u62A5\u544A\u95EE\u9898" }),
+        /* @__PURE__ */ u4("div", {}),
+        /* @__PURE__ */ u4("menu", { onClick: down, children: "\u5B8C\u5168\u540C\u6B65" }),
+        /* @__PURE__ */ u4("div", {}),
+        /* @__PURE__ */ u4("menu", { title: "#wordlists", onClick: open, children: "\u6211\u7684\u8BCD\u4E66" }),
+        /* @__PURE__ */ u4("div", {}),
+        /* @__PURE__ */ u4("menu", { title: "#setting", onClick: open, children: "\u8BBE\u7F6E" }),
+        /* @__PURE__ */ u4("div", {}),
+        /* @__PURE__ */ u4("menu", { title: "#about", onClick: open, children: "\u5173\u4E8E" }),
+        /* @__PURE__ */ u4("div", {}),
+        /* @__PURE__ */ u4("menu", { title: "#help", onClick: open, children: "\u5E2E\u52A9" }),
+        /* @__PURE__ */ u4("div", {}),
+        /* @__PURE__ */ u4("menu", { title: "#logout", onClick: open, children: "\u767B\u51FA" })
+      ]
+    }
+  );
 };
 
 // components/input-textarea.tsx
