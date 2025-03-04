@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.11";
+var version = "0.7.12";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -3081,7 +3081,7 @@ var study_default = () => {
             children: [
               /* @__PURE__ */ u4("div", { class: "py-2 text-4xl font-bold", children: citem.value.word }),
               isPhaseAnswer.value && ((citem.value.cards?.length ?? 0) > 1 ? /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: citem.value.cards?.map((card, i5) => /* @__PURE__ */ u4(scard_default, { card }, `${citem.value?.word}${i5}`)) }) : /* @__PURE__ */ u4("div", { class: "grow h-0 overflow-y-auto", children: /* @__PURE__ */ u4(scard_default, { card: citem.value.cards?.[0] }) })),
-              /* @__PURE__ */ u4("audio", { ref: player, autoPlay: true, src: citem.value.cards?.at(cindex.value)?.sound ? `${API_URL}/sound?q=${encodeURIComponent(citem.value.cards[cindex.value].sound)}` : "" })
+              /* @__PURE__ */ u4("audio", { ref: player, autoPlay: true, src: isPhaseAnswer.value && citem.value.cards?.at(cindex.value)?.sound ? `${API_URL}/sound?q=${encodeURIComponent(citem.value.cards[cindex.value].sound)}` : "" })
             ]
           }
         )
