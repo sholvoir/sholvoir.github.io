@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.10";
+var version = "0.7.11";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2231,21 +2231,33 @@ var dialog_default = ({
   children,
   leftElem,
   rightElem,
-  className,
+  class: className,
   onBackClick,
-  onMenuClick
+  onMenuClick,
+  ...rest
 }) => /* @__PURE__ */ u4(k, { children: [
   /* @__PURE__ */ u4("div", { class: "title shrink-0 px-2 flex justify-between items-center font-bold", children: [
-    /* @__PURE__ */ u4("div", { class: "w-6 [app-region:no-drag]", children: leftElem ?? (onBackClick && /* @__PURE__ */ u4(button_base_default, { class: "w-full h-6 i-material-symbols-chevron-left text-[150%]", onClick: onBackClick })) }),
+    /* @__PURE__ */ u4("div", { class: "w-6 [app-region:no-drag]", children: leftElem ?? (onBackClick && /* @__PURE__ */ u4(
+      button_base_default,
+      {
+        onClick: onBackClick,
+        class: "w-full h-6 i-material-symbols-chevron-left text-[150%]"
+      }
+    )) }),
     /* @__PURE__ */ u4("div", { class: "grow font-bold text-center [app-region:drag]", children: tips.value || title }),
-    /* @__PURE__ */ u4("div", { class: "w-6 [app-region:no-drag]", children: rightElem ?? (onMenuClick && /* @__PURE__ */ u4(button_base_default, { class: "w-full h-6 i-heroicons-outline-dots-horizontal", onClick: onMenuClick })) })
+    /* @__PURE__ */ u4("div", { class: "w-6 [app-region:no-drag]", children: rightElem ?? (onMenuClick && /* @__PURE__ */ u4(
+      button_base_default,
+      {
+        onClick: onMenuClick,
+        class: "w-full h-6 i-heroicons-outline-dots-horizontal"
+      }
+    )) })
   ] }),
-  /* @__PURE__ */ u4("div", { class: `body grow h-0 flex flex-col ${className ?? ""}`, children })
+  /* @__PURE__ */ u4("div", { class: `body grow h-0 ${className ?? ""}`, ...rest, children })
 ] });
 
 // components/button-ripple.tsx
-var button_ripple_default = (props) => {
-  const { class: className, children, onClick, ...rest } = props;
+var button_ripple_default = ({ class: className, children, onClick, ...rest }) => {
   const showRipple = useSignal(false);
   const rippleStyle = useSignal({});
   const handleClick = (e4) => {
@@ -2343,7 +2355,7 @@ var icon_me_default = (props) => /* @__PURE__ */ u4("svg", { ...props, xmlns: "h
 ] });
 
 // src/home.tsx
-var home_default = () => /* @__PURE__ */ u4(dialog_default, { title: "\u5B66\u4E60\u8FDB\u5EA6", children: [
+var home_default = () => /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col", title: "\u5B66\u4E60\u8FDB\u5EA6", children: [
   /* @__PURE__ */ u4("div", { class: "body grow overflow-y-auto", children: /* @__PURE__ */ u4("div", { class: "p-2 flex flex-wrap justify-between gap-4", children: stats.value.stats.map((stat, i5) => /* @__PURE__ */ u4(stat_default, { stat }, i5)) }) }),
   /* @__PURE__ */ u4("div", { class: "tail shrink-0 px-4 pt-2 pb-4 flex gap-3 justify-between [&>button]:grow font-bold", children: [
     /* @__PURE__ */ u4(button_ripple_default, { onClick: () => go("#search"), children: [
@@ -2362,7 +2374,7 @@ var home_default = () => /* @__PURE__ */ u4(dialog_default, { title: "\u5B66\u4E
 ] });
 
 // src/help.tsx
-var help_default = () => /* @__PURE__ */ u4(dialog_default, { title: "\u5E2E\u52A9", children: /* @__PURE__ */ u4("ol", { class: "list-decimal py-2 pr-2 pl-8 [&>li]:mx-2", children: [
+var help_default = () => /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col pb-4", title: "\u5E2E\u52A9", onBackClick: () => go(), children: /* @__PURE__ */ u4("ol", { class: "list-decimal py-2 pr-2 pl-8 [&>li]:mx-2 overflow-y-auto", children: [
   /* @__PURE__ */ u4("li", { children: [
     "\u5982\u4F55\u4F7F\u7528\u672C\u8F6F\u4EF6\uFF1F",
     /* @__PURE__ */ u4("br", {}),
@@ -2383,22 +2395,22 @@ var help_default = () => /* @__PURE__ */ u4(dialog_default, { title: "\u5E2E\u52
   /* @__PURE__ */ u4("li", { children: [
     "\u754C\u9762\u4E0A\u7684\u6309\u94AE\u662F\u4EC0\u4E48\u610F\u601D\uFF1F",
     /* @__PURE__ */ u4("br", {}),
-    /* @__PURE__ */ u4("div", { class: "w-6 h-6 inline-block", children: "\u2611" }),
+    /* @__PURE__ */ u4("span", { class: "text-[150%] i-material-symbols-check-circle text-green" }),
     "\u6211\u8BA4\u8BC6\u8FD9\u4E2A\u8BCD\uFF1B",
     /* @__PURE__ */ u4("br", {}),
-    /* @__PURE__ */ u4("div", { class: "w-6 h-6 inline-block bg-slate-500", children: "\u2612" }),
+    /* @__PURE__ */ u4("span", { class: "text-[150%] i-gridicons-cross-circle text-fuchsia" }),
     "\u6211\u4E0D\u8BA4\u8BC6\u8FD9\u4E2A\u8BCD\uFF1B",
     /* @__PURE__ */ u4("br", {}),
-    /* @__PURE__ */ u4("div", { class: "w-6 h-6 inline-block", children: "\u25B6" }),
+    /* @__PURE__ */ u4("span", { class: "text-[150%] i-material-symbols-volume-up text-blue" }),
     ": \u518D\u64AD\u4E00\u904D\u58F0\u97F3\uFF1B",
     /* @__PURE__ */ u4("br", {}),
-    /* @__PURE__ */ u4("div", { class: "w-6 h-6 inline-block", children: "\u2609" }),
+    /* @__PURE__ */ u4("span", { class: "text-[150%] i-material-symbols-light-family-star text-yellow" }),
     ": \u8FD9\u4E2A\u8BCD\u6211\u5DF2\u7ECF\u638C\u63E1\uFF0C\u76F4\u63A5\u6807\u8BB0\u4E3A\u300C\u5DF2\u5B8C\u6210\u300D\uFF1B",
     /* @__PURE__ */ u4("br", {}),
-    /* @__PURE__ */ u4("div", { class: "w-6 h-6 inline-block", children: "\u26A0" }),
+    /* @__PURE__ */ u4("span", { class: "text-[150%] i-material-symbols-error text-red" }),
     ": \u8FD9\u4E2A\u8BCD\u7684\u7FFB\u8BD1/\u58F0\u97F3/\u97F3\u6807\uFF0C\u6709\u95EE\u9898/\u9519\u8BEF\uFF0C\u8BF7\u4EBA\u5DE5\u5904\u7406\u3002",
     /* @__PURE__ */ u4("br", {}),
-    /* @__PURE__ */ u4("div", { class: "w-6 h-6 inline-block", children: "\u27F3" }),
+    /* @__PURE__ */ u4("span", { class: "text-[150%] i-material-symbols-refresh text-purple" }),
     ": \u5FFD\u7565\u672C\u5730\u8BCD\u5178\u7F13\u51B2\uFF0C\u4ECE\u670D\u52A1\u5668\u91CD\u65B0\u4E0B\u8F7D\u8FD9\u4E2A\u8BCD\u7684\u7FFB\u8BD1/\u58F0\u97F3/\u97F3\u6807\u3002"
   ] }),
   /* @__PURE__ */ u4("li", { children: [
@@ -2421,84 +2433,92 @@ var help_default = () => /* @__PURE__ */ u4(dialog_default, { title: "\u5E2E\u52
 ] }) });
 
 // src/about.tsx
-var about_default = () => /* @__PURE__ */ u4(dialog_default, { title: "\u5FEB\u4E50\u80CC\u5355\u8BCD", onBackClick: user.value ? () => go("#home") : void 0, children: /* @__PURE__ */ u4("div", { class: "about", children: [
-  /* @__PURE__ */ u4("div", { children: [
-    /* @__PURE__ */ u4("h1", { children: "\u5FEB\u4E50\u80CC\u5355\u8BCD" }),
-    /* @__PURE__ */ u4("p", { children: [
-      "\u7248\u672C\uFF1A",
-      version
-    ] })
-  ] }),
-  /* @__PURE__ */ u4("div", { children: [
-    /* @__PURE__ */ u4("h1", { children: "\u8BED\u8A00\u57FA\u7840" }),
-    /* @__PURE__ */ u4("p", { children: [
-      "\u8BCD\u6C47\u662F",
-      /* @__PURE__ */ u4("b", { children: "\u8BED\u8A00\u7684\u57FA\u7840" }),
-      "\uFF0C\u5B66\u4E60\u8BED\u8A00\u5E94\u8BE5\u638C\u63E1\u4E00\u5B9A\u6570\u91CF\u7684\u57FA\u7840\u8BCD\u6C47\u3002"
-    ] })
-  ] }),
-  /* @__PURE__ */ u4("div", { children: [
-    /* @__PURE__ */ u4("h1", { children: "\u9AD8\u9891\u8BCD\u6C47" }),
-    /* @__PURE__ */ u4("p", { children: [
-      "\u6BCF\u4E2A\u8BCD\u6C47\u7684\u91CD\u8981\u7A0B\u5EA6\u662F\u4E0D\u4E00\u6837\u7684\uFF0C\u8D8A\u662F\u4F7F\u7528",
-      /* @__PURE__ */ u4("b", { children: "\u9891\u7387\u9AD8\u7684\u8BCD\u6C47" }),
-      "\uFF0C\u5176\u91CD\u8981\u7A0B\u5EA6\u8D8A\u9AD8\uFF0C\u672C\u5DE5\u5177\u63D0\u4F9B\u591A\u79CD\u8BCD\u9891\u5DE5\u5177\u7EDF\u8BA1\u7684\u7ED3\u679C\u8BCD\u4E66\u3002"
-    ] })
-  ] }),
-  /* @__PURE__ */ u4("div", { children: [
-    /* @__PURE__ */ u4("h1", { children: "\u9057\u5FD8\u66F2\u7EBF" }),
-    /* @__PURE__ */ u4("p", { children: [
-      "\u8BB0\u5FC6\u6700\u5927\u7684\u654C\u4EBA\u662F\u9057\u5FD8\uFF0C\u672C\u5DE5\u5177\u4F9D\u636E\u300C\u827E\u5BBE\u6D69\u65AF\u300D",
-      /* @__PURE__ */ u4("b", { children: "\u9057\u5FD8\u66F2\u7EBF" }),
-      "\u8BBE\u8BA1\u5927\u8111\u523A\u6FC0\u9891\u7387\uFF0C\u4EE5\u6700\u5927\u5316\u8BB0\u5FC6\u6548\u7387\u3002"
-    ] })
-  ] }),
-  /* @__PURE__ */ u4("div", { children: [
-    /* @__PURE__ */ u4("h1", { children: "\u788E\u7247\u65F6\u95F4" }),
-    /* @__PURE__ */ u4("p", { children: [
-      "\u73B0\u4EE3\u4EBA\u5DE5\u4F5C\u5B66\u4E60\u90FD\u975E\u5E38\u5FD9\u788C\uFF0C\u5145\u5206\u5229\u7528\u597D",
-      /* @__PURE__ */ u4("b", { children: "\u788E\u7247\u65F6\u95F4" }),
-      "\uFF0C\u662F\u6210\u529F\u7684\u5173\u952E\u3002"
-    ] })
-  ] }),
-  /* @__PURE__ */ u4("div", { children: [
-    /* @__PURE__ */ u4("h1", { children: "\u5F00\u59CB\u5B66\u4E60" }),
-    /* @__PURE__ */ u4("p", { children: [
-      "\u4F7F\u7528\u4F60\u7684\u624B\u673A\uFF0C\u5355\u51FB",
-      /* @__PURE__ */ u4(
-        button_ripple_default,
-        {
-          class: "button bg-orange-300 text-slate-800",
-          title: "login",
-          onClick: () => go("#signup"),
-          children: "\u767B\u5F55"
-        }
-      ),
-      "\u5F00\u59CB\u514D\u8D39\u5B66\u4E60\u5427\u3002"
-    ] })
-  ] }),
-  /* @__PURE__ */ u4("div", { children: [
-    /* @__PURE__ */ u4("h1", { children: "\u5FAE\u4FE1" }),
-    /* @__PURE__ */ u4("p", { children: [
-      "*\u63D0\u793A\u4E00\uFF1A\u8BF7\u4F7F\u7528",
-      /* @__PURE__ */ u4("b", { children: "\u9664\u5FAE\u4FE1\u4EE5\u5916" }),
-      "\u7684\u5176\u4ED6\u6D4F\u89C8\u5668\uFF0C\u5982\u679C\u5F53\u524D\u662F\u5728\u5FAE\u4FE1\u4E2D\uFF0C\u70B9\u51FB\u5C4F\u5E55\u53F3\u4E0A(...)\uFF0C\u7136\u540E\u9009\u62E9\u300C\u5728\u9ED8\u8BA4\u6D4F\u89C8\u5668\u4E2D\u6253\u5F00\u300D\u3002"
-    ] })
-  ] }),
-  /* @__PURE__ */ u4("div", { children: [
-    /* @__PURE__ */ u4("h1", { children: "\u684C\u9762" }),
-    /* @__PURE__ */ u4("p", { children: [
-      "*\u63D0\u793A\u4E8C(iOS): \u8BF7\u4F7F\u7528\u300C\u5171\u4EAB\u300D-\u300C\u6DFB\u52A0\u5230\u4E3B\u5C4F\u5E55\u300D\u5B89\u88C5 ",
-      /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
-      " \u5230\u684C\u9762\uFF0C\u4EE5\u4FBF\u4E0B\u6B21\u76F4\u63A5\u70B9\u51FB\u8FDB\u5165\u3002"
-    ] }),
-    /* @__PURE__ */ u4("p", { children: [
-      "*\u63D0\u793A\u4E09(Android): \u8BF7\u4F7F\u7528\u300C...\u300D-\u300C\u5B89\u88C5\u5E94\u7528\u300D\u5B89\u88C5 ",
-      /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
-      " \u5230\u684C\u9762\u3002"
-    ] })
-  ] })
-] }) });
+var about_default = () => /* @__PURE__ */ u4(
+  dialog_default,
+  {
+    title: "\u5FEB\u4E50\u80CC\u5355\u8BCD",
+    class: "about flex flex-col pb-4",
+    onBackClick: user.value ? () => go("#home") : void 0,
+    children: [
+      /* @__PURE__ */ u4("div", { children: [
+        /* @__PURE__ */ u4("h1", { children: "\u5FEB\u4E50\u80CC\u5355\u8BCD" }),
+        /* @__PURE__ */ u4("p", { children: [
+          "\u7248\u672C\uFF1A",
+          version
+        ] })
+      ] }),
+      /* @__PURE__ */ u4("div", { children: [
+        /* @__PURE__ */ u4("h1", { children: "\u8BED\u8A00\u57FA\u7840" }),
+        /* @__PURE__ */ u4("p", { children: [
+          "\u8BCD\u6C47\u662F",
+          /* @__PURE__ */ u4("b", { children: "\u8BED\u8A00\u7684\u57FA\u7840" }),
+          "\uFF0C\u5B66\u4E60\u8BED\u8A00\u5E94\u8BE5\u638C\u63E1\u4E00\u5B9A\u6570\u91CF\u7684\u57FA\u7840\u8BCD\u6C47\u3002"
+        ] })
+      ] }),
+      /* @__PURE__ */ u4("div", { children: [
+        /* @__PURE__ */ u4("h1", { children: "\u9AD8\u9891\u8BCD\u6C47" }),
+        /* @__PURE__ */ u4("p", { children: [
+          "\u6BCF\u4E2A\u8BCD\u6C47\u7684\u91CD\u8981\u7A0B\u5EA6\u662F\u4E0D\u4E00\u6837\u7684\uFF0C\u8D8A\u662F\u4F7F\u7528",
+          /* @__PURE__ */ u4("b", { children: "\u9891\u7387\u9AD8\u7684\u8BCD\u6C47" }),
+          "\uFF0C\u5176\u91CD\u8981\u7A0B\u5EA6\u8D8A\u9AD8\uFF0C\u672C\u5DE5\u5177\u63D0\u4F9B\u591A\u79CD\u8BCD\u9891\u5DE5\u5177\u7EDF\u8BA1\u7684\u7ED3\u679C\u8BCD\u4E66\u3002"
+        ] })
+      ] }),
+      /* @__PURE__ */ u4("div", { children: [
+        /* @__PURE__ */ u4("h1", { children: "\u9057\u5FD8\u66F2\u7EBF" }),
+        /* @__PURE__ */ u4("p", { children: [
+          "\u8BB0\u5FC6\u6700\u5927\u7684\u654C\u4EBA\u662F\u9057\u5FD8\uFF0C\u672C\u5DE5\u5177\u4F9D\u636E\u300C\u827E\u5BBE\u6D69\u65AF\u300D",
+          /* @__PURE__ */ u4("b", { children: "\u9057\u5FD8\u66F2\u7EBF" }),
+          "\u8BBE\u8BA1\u5927\u8111\u523A\u6FC0\u9891\u7387\uFF0C\u4EE5\u6700\u5927\u5316\u8BB0\u5FC6\u6548\u7387\u3002"
+        ] })
+      ] }),
+      /* @__PURE__ */ u4("div", { children: [
+        /* @__PURE__ */ u4("h1", { children: "\u788E\u7247\u65F6\u95F4" }),
+        /* @__PURE__ */ u4("p", { children: [
+          "\u73B0\u4EE3\u4EBA\u5DE5\u4F5C\u5B66\u4E60\u90FD\u975E\u5E38\u5FD9\u788C\uFF0C\u5145\u5206\u5229\u7528\u597D",
+          /* @__PURE__ */ u4("b", { children: "\u788E\u7247\u65F6\u95F4" }),
+          "\uFF0C\u662F\u6210\u529F\u7684\u5173\u952E\u3002"
+        ] })
+      ] }),
+      /* @__PURE__ */ u4("div", { children: [
+        /* @__PURE__ */ u4("h1", { children: "\u5F00\u59CB\u5B66\u4E60" }),
+        /* @__PURE__ */ u4("p", { children: [
+          "\u4F7F\u7528\u4F60\u7684\u624B\u673A\uFF0C\u5355\u51FB",
+          /* @__PURE__ */ u4(
+            button_ripple_default,
+            {
+              class: "button bg-orange-300 text-slate-800",
+              title: "login",
+              onClick: () => go("#signup"),
+              children: "\u767B\u5F55"
+            }
+          ),
+          "\u5F00\u59CB\u514D\u8D39\u5B66\u4E60\u5427\u3002"
+        ] })
+      ] }),
+      /* @__PURE__ */ u4("div", { children: [
+        /* @__PURE__ */ u4("h1", { children: "\u5FAE\u4FE1" }),
+        /* @__PURE__ */ u4("p", { children: [
+          "*\u63D0\u793A\u4E00\uFF1A\u8BF7\u4F7F\u7528",
+          /* @__PURE__ */ u4("b", { children: "\u9664\u5FAE\u4FE1\u4EE5\u5916" }),
+          "\u7684\u5176\u4ED6\u6D4F\u89C8\u5668\uFF0C\u5982\u679C\u5F53\u524D\u662F\u5728\u5FAE\u4FE1\u4E2D\uFF0C\u70B9\u51FB\u5C4F\u5E55\u53F3\u4E0A(...)\uFF0C\u7136\u540E\u9009\u62E9\u300C\u5728\u9ED8\u8BA4\u6D4F\u89C8\u5668\u4E2D\u6253\u5F00\u300D\u3002"
+        ] })
+      ] }),
+      /* @__PURE__ */ u4("div", { children: [
+        /* @__PURE__ */ u4("h1", { children: "\u684C\u9762" }),
+        /* @__PURE__ */ u4("p", { children: [
+          "*\u63D0\u793A\u4E8C(iOS): \u8BF7\u4F7F\u7528\u300C\u5171\u4EAB\u300D-\u300C\u6DFB\u52A0\u5230\u4E3B\u5C4F\u5E55\u300D\u5B89\u88C5 ",
+          /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
+          " \u5230\u684C\u9762\uFF0C\u4EE5\u4FBF\u4E0B\u6B21\u76F4\u63A5\u70B9\u51FB\u8FDB\u5165\u3002"
+        ] }),
+        /* @__PURE__ */ u4("p", { children: [
+          "*\u63D0\u793A\u4E09(Android): \u8BF7\u4F7F\u7528\u300C...\u300D-\u300C\u5B89\u88C5\u5E94\u7528\u300D\u5B89\u88C5 ",
+          /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
+          " \u5230\u684C\u9762\u3002"
+        ] })
+      ] })
+    ]
+  }
+);
 
 // src/menu.tsx
 var menu_default = () => {
@@ -2512,7 +2532,7 @@ var menu_default = () => {
     await totalStats2();
     go();
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u83DC\u5355", onBackClick: () => go(), children: /* @__PURE__ */ u4("div", { class: "menu", children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "menu p-2 flex flex-col gap-1", title: "\u83DC\u5355", onBackClick: () => go(), children: [
     isAdmin() && /* @__PURE__ */ u4(k, { children: [
       /* @__PURE__ */ u4("menu", { title: "#lookup", onClick: open, children: "\u8F9E\u5178\u7F16\u8F91" }),
       /* @__PURE__ */ u4("div", {}),
@@ -2532,7 +2552,7 @@ var menu_default = () => {
     /* @__PURE__ */ u4("menu", { title: "#help", onClick: open, children: "\u5E2E\u52A9" }),
     /* @__PURE__ */ u4("div", {}),
     /* @__PURE__ */ u4("menu", { title: "#logout", onClick: open, children: "\u767B\u51FA" })
-  ] }) });
+  ] });
 };
 
 // components/input-textarea.tsx
@@ -2546,14 +2566,14 @@ var issue_default = () => {
     showTips("\u63D0\u4EA4\u6210\u529F!");
     go();
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u63D0\u4EA4\u95EE\u9898", children: /* @__PURE__ */ u4("div", { class: "p-2 h-full flex flex-col gap-2", children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "p-2 flex flex-col gap-2", title: "\u63D0\u4EA4\u95EE\u9898", children: [
     /* @__PURE__ */ u4("label", { children: "\u8BF7\u5728\u8FD9\u91CC\u63CF\u8FF0\u4F60\u7684\u95EE\u9898:" }),
-    /* @__PURE__ */ u4(input_textarea_default, { name: "issue", class: "w-full grow", binding: issue, children: issue.value }),
-    /* @__PURE__ */ u4("div", { class: "flex gap-2 mt-2 pb-2 justify-end", children: [
-      /* @__PURE__ */ u4(button_ripple_default, { class: "w-32 button btn-normal", onClick: () => go(), children: "\u53D6\u6D88" }),
-      /* @__PURE__ */ u4(button_ripple_default, { class: "w-32 button btn-prime", onClick: handleSubmitClick, children: "\u63D0\u4EA4" })
+    /* @__PURE__ */ u4(input_textarea_default, { name: "issue", class: "grow", binding: issue, children: issue.value }),
+    /* @__PURE__ */ u4("div", { class: "flex gap-2 mt-2 pb-4 justify-end", children: [
+      /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", onClick: () => go(), children: "\u53D6\u6D88" }),
+      /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-prime", onClick: handleSubmitClick, children: "\u63D0\u4EA4" })
     ] })
-  ] }) });
+  ] });
 };
 
 // components/input-simple.tsx
@@ -2608,7 +2628,7 @@ var setting_default = () => {
   y2(() => {
     init2();
   }, []);
-  return /* @__PURE__ */ u4(dialog_default, { className: "p-2 gap-2", title: "\u8BBE\u7F6E", onBackClick: () => go(), children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "p-2 gap-2 flex flex-col", title: "\u8BBE\u7F6E", onBackClick: () => go(), children: [
     /* @__PURE__ */ u4("div", { class: "flex gap-2", children: [
       /* @__PURE__ */ u4("label", { for: "filter", children: "\u8BBE\u7F6E\u8FC7\u6EE4" }),
       /* @__PURE__ */ u4(input_simple_default, { class: "grow", name: "filter", binding: filter })
@@ -2680,7 +2700,7 @@ var tab_default = ({ class: className, cindex, children }) => {
       )
     ) }),
     /* @__PURE__ */ u4("section", { class: `grow h-0 p-2 overflow-y-auto ${className ?? ""}`, children: childs[cindex.value] })
-  ] }) : /* @__PURE__ */ u4(k, {});
+  ] }) : void 0;
 };
 
 // src/ecard.tsx
@@ -2773,7 +2793,7 @@ function Lookup() {
   const handleDeleteClick = async () => {
     showTips(await deleteDict(word.value) ? `success delete word "${word.value}"!` : `Error`);
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u8F9E\u5178\u7F16\u8F91", className: "gap-2 p-2", onBackClick: () => go(), children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col gap-2 p-2", title: "\u8F9E\u5178\u7F16\u8F91\xE6\u02CC\u0259\u02C8\u026A", onBackClick: () => go(), children: [
     /* @__PURE__ */ u4("div", { class: "flex gap-2", children: [
       /* @__PURE__ */ u4(
         input_text_default,
@@ -2797,7 +2817,7 @@ function Lookup() {
       )
     ] }),
     /* @__PURE__ */ u4("div", { class: "flex flex-col grow", children: /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: cards.value.map((card, i5) => /* @__PURE__ */ u4(ecard_default, { card }, `${word.value}${i5}`)) }) }),
-    isAdmin() && /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
+    /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2 pb-4", children: [
       /* @__PURE__ */ u4(
         button_ripple_default,
         {
@@ -2851,7 +2871,7 @@ var search_default = () => {
     sprint.value = -1;
     go("#study");
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u8BCD\u5178", onBackClick: () => go(), children: /* @__PURE__ */ u4(
+  return /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col", title: "\u8BCD\u5178", onBackClick: () => go(), children: /* @__PURE__ */ u4(
     input_text_default,
     {
       autoCapitalize: "none",
@@ -2892,11 +2912,7 @@ var study_default = () => {
   const cindex = useSignal(0);
   const startY = useSignal(0);
   const endY = useSignal(0);
-  const played = useSignal(false);
   const player = A2(null);
-  useSignalEffect(() => {
-    cindex.value, played.value = false;
-  });
   const handleIKnown = (level) => studied2(citem.value.word, level);
   const studyNext = async () => {
     if (++sprint.value <= 0) return finish();
@@ -2982,22 +2998,19 @@ var study_default = () => {
     } else handleClick();
     endY.value = startY.value = 0;
   };
-  const handleClick = async (e4) => {
+  const handleClick = (e4) => {
     e4?.stopPropagation();
     const cardsN = citem.value?.cards?.length ?? 0;
     if (cardsN == 0) return;
     if (!isPhaseAnswer.value) isPhaseAnswer.value = true;
-    else if (!played.value) player.current?.play();
-    else if (cindex.value < cardsN - 1) cindex.value++;
+    else if (cardsN == 1) player.current?.play();
+    if (cindex.value < cardsN - 1) cindex.value++;
     else cindex.value = 0;
-  };
-  const handlePlayEnded = () => {
-    if ((citem.value?.cards?.length ?? 0) > 1) played.value = true;
   };
   return /* @__PURE__ */ u4(dialog_default, { title: "\u5B66\u4E60", onBackClick: finish, children: /* @__PURE__ */ u4(
     "div",
     {
-      class: `relative grow h-0 p-2 flex flex-col outline-none`,
+      class: `relative h-full p-2 flex flex-col outline-none`,
       tabIndex: -1,
       onKeyUp: handleKeyPress,
       style: { top: `${endY.value - startY.value}px` },
@@ -3059,7 +3072,7 @@ var study_default = () => {
         /* @__PURE__ */ u4(
           "div",
           {
-            class: "grow h-0 pb-3 flex flex-col",
+            class: "grow h-0 pb-4 flex flex-col",
             onTouchStart: handleTouchStart,
             onTouchMove: handleTouchMove,
             onTouchEnd: handleTouchEnd,
@@ -3068,7 +3081,7 @@ var study_default = () => {
             children: [
               /* @__PURE__ */ u4("div", { class: "py-2 text-4xl font-bold", children: citem.value.word }),
               isPhaseAnswer.value && ((citem.value.cards?.length ?? 0) > 1 ? /* @__PURE__ */ u4(tab_default, { class: "bg-[var(--bg-tab)]", cindex, children: citem.value.cards?.map((card, i5) => /* @__PURE__ */ u4(scard_default, { card }, `${citem.value?.word}${i5}`)) }) : /* @__PURE__ */ u4("div", { class: "grow h-0 overflow-y-auto", children: /* @__PURE__ */ u4(scard_default, { card: citem.value.cards?.[0] }) })),
-              /* @__PURE__ */ u4("audio", { ref: player, onEnded: handlePlayEnded, src: citem.value.cards?.at(cindex.value)?.sound ? `${API_URL}/sound?q=${encodeURIComponent(citem.value.cards[cindex.value].sound)}` : "" })
+              /* @__PURE__ */ u4("audio", { ref: player, autoPlay: true, src: citem.value.cards?.at(cindex.value)?.sound ? `${API_URL}/sound?q=${encodeURIComponent(citem.value.cards[cindex.value].sound)}` : "" })
             ]
           }
         )
@@ -3101,7 +3114,7 @@ var signup_default = () => {
         go("#signin");
     }
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u6CE8\u518C", onBackClick: () => go(), children: /* @__PURE__ */ u4("div", { class: "p-2 h-full w-64 mx-auto flex flex-col", children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "p-2 flex flex-col", title: "\u6CE8\u518C", onBackClick: () => go(), children: /* @__PURE__ */ u4("div", { class: "w-64 m-auto flex flex-col pb-4", children: [
     /* @__PURE__ */ u4("label", { children: "\u7528\u6237\u540D" }),
     /* @__PURE__ */ u4(
       input_simple_default,
@@ -3177,7 +3190,7 @@ var signin_default = () => {
         location.reload();
     }
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u767B\u5F55", onBackClick: () => go(), children: /* @__PURE__ */ u4("div", { class: "p-2 h-full w-64 mx-auto flex flex-col", children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "p-2 flex flex-col", title: "\u767B\u5F55", onBackClick: () => go(), children: /* @__PURE__ */ u4("div", { class: "w-64 m-auto flex flex-col", children: [
     /* @__PURE__ */ u4("label", { for: "name", children: "\u7528\u6237\u540D" }),
     /* @__PURE__ */ u4(input_simple_default, { name: "name", class: "mb-3", placeholder: "name", autoCapitalize: "none", binding: name }),
     /* @__PURE__ */ u4("label", { for: "code", children: "\u4E34\u65F6\u5BC6\u7801" }),
@@ -3197,10 +3210,10 @@ var signout_default = () => {
     go();
     signout();
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u767B\u51FA", onBackClick: () => go(), children: /* @__PURE__ */ u4("div", { class: "p-2 h-full w-64 mx-auto flex flex-col gap-4", children: /* @__PURE__ */ u4("div", { class: "flex gap-2", children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "p-2 flex flex-col", title: "\u767B\u51FA", onBackClick: () => go(), children: /* @__PURE__ */ u4("div", { class: "w-64 m-auto flex gap-2", children: [
     /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: () => go(), children: "\u53D6\u6D88" }),
     /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-prime grow", onClick: handleSignoutClick, children: "\u767B\u51FA" })
-  ] }) }) });
+  ] }) });
 };
 
 // src/syswordlist.tsx
@@ -3212,14 +3225,14 @@ var syswordlist_default = () => {
     const result = await postSysWordList(name2.value, words.value, disc.value);
     showTips(result ? "\u8BCD\u4E66\u4E0A\u4F20\u6210\u529F" : "\u8BCD\u4E66\u4E0A\u4F20\u5931\u8D25");
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u7CFB\u7EDF\u8BCD\u4E66", className: "p-2", onBackClick: () => go(), children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col p-2", title: "\u7CFB\u7EDF\u8BCD\u4E66", onBackClick: () => go(), children: [
     /* @__PURE__ */ u4("label", { for: "name", children: "\u540D\u79F0" }),
     /* @__PURE__ */ u4("input", { name: "name", value: name2, onChange: (e4) => name2.value = e4.currentTarget.value }),
     /* @__PURE__ */ u4("label", { for: "disc", class: "mt-2", children: "\u63CF\u8FF0" }),
     /* @__PURE__ */ u4("input", { name: "disc", value: disc, onChange: (e4) => disc.value = e4.currentTarget.value }),
     /* @__PURE__ */ u4("label", { for: "disc", class: "mt-2", children: "\u8BCD\u8868" }),
     /* @__PURE__ */ u4("textarea", { class: "grow", value: words, onChange: (e4) => words.value = e4.currentTarget.value }),
-    /* @__PURE__ */ u4("div", { class: "flex justify-end gap-2 mt-2", children: [
+    /* @__PURE__ */ u4("div", { class: "flex justify-end gap-2 my-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-32 button btn-normal", onClick: () => go(), children: "\u53D6\u6D88" }),
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-32 button btn-prime", onClick: handleOKClick, children: "\u4E0A\u4F20" })
     ] })
@@ -3248,14 +3261,14 @@ var wordlists_default = () => {
   y2(() => {
     init2();
   }, []);
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u6211\u7684\u8BCD\u4E66", onBackClick: () => go(), children: /* @__PURE__ */ u4("div", { class: "p-2 h-full flex flex-col gap-2", children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "p-2 flex flex-col gap-2", title: "\u6211\u7684\u8BCD\u4E66", onBackClick: () => go(), children: [
     /* @__PURE__ */ u4("div", { class: "shrink grow border overflow-y-auto", children: /* @__PURE__ */ u4(list_default, { cindex, options: wls.value.map((wl) => wl.disc ?? wl.wlid) }) }),
     /* @__PURE__ */ u4("div", { class: "flex justify-end gap-2 pb-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", name: "new", onClick: handleNewClick, children: "\u65B0\u5EFA" }),
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", name: "delete", disabled: !wls.value.length, onClick: handleDeleteClick, children: "\u5220\u9664" }),
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", name: "update", disabled: !wls.value.length, onClick: handleUpdateClick, children: "\u66F4\u65B0" })
     ] })
-  ] }) });
+  ] });
 };
 
 // src/wordlist.tsx
@@ -3278,7 +3291,7 @@ var wordlist_default = () => {
       }
     }
   };
-  return /* @__PURE__ */ u4(dialog_default, { title: "\u4E0A\u4F20\u6211\u7684\u8BCD\u4E66", className: "p-2", onBackClick: () => go(), children: [
+  return /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col p-2", title: "\u4E0A\u4F20\u6211\u7684\u8BCD\u4E66", onBackClick: () => go(), children: [
     /* @__PURE__ */ u4("label", { for: "name", children: "\u540D\u79F0" }),
     /* @__PURE__ */ u4("input", { name: "name", value: name2, onChange: (e4) => name2.value = e4.currentTarget.value }),
     /* @__PURE__ */ u4("label", { for: "disc", class: "mt-2", children: "\u63CF\u8FF0" }),
@@ -3289,7 +3302,7 @@ var wordlist_default = () => {
       /* @__PURE__ */ u4("label", { for: "replace", class: "text-red-500 mt-2", children: "\u8BF7\u8003\u8651\u7528\u4E0B\u9762\u7684\u8BCD\u66FF\u6362" }),
       /* @__PURE__ */ u4("textarea", { name: "replace", class: "grow", value: replace, onChange: (e4) => replace.value = e4.currentTarget.value })
     ] }) : void 0,
-    /* @__PURE__ */ u4("div", { class: "flex justify-end gap-2 mt-2", children: [
+    /* @__PURE__ */ u4("div", { class: "flex justify-end gap-2 my-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-32 button btn-normal", onClick: () => go(), children: "\u53D6\u6D88" }),
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-32 button btn-prime", onClick: handleOKClick, children: "\u4E0A\u4F20" })
     ] })
