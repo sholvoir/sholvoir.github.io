@@ -1662,6 +1662,15 @@ var defaultSetting = () => ({
   books: []
 });
 
+// ../memword-server/lib/iwordlist.ts
+var compareWL = (a4, b3) => a4.wlid.localeCompare(b3.wlid);
+var regex = /^(.+?)\/(.+)$/;
+var splitID = (id) => {
+  const m4 = regex.exec(id);
+  if (m4) return [m4[1], m4[2]];
+  return ["", ""];
+};
+
 // ../memword-server/lib/common.ts
 var B2_BASE_URL = "https://f005.backblazeb2.com/file/vocabulary";
 var now = () => Math.floor(Date.now() / 1e3);
@@ -1712,7 +1721,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.15";
+var version = "0.7.16";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2095,20 +2104,29 @@ var postSysWordList = async (name2, words, disc) => {
   }
 };
 var postMyWordList = async (name2, words, disc) => {
-  const res = await getRes(`${API_URL}/api/wordlist`, { name: name2, disc }, { body: words, method: "POST", headers: authHead() });
+  const res = await getRes(
+    `${API_URL}/api/wordlist`,
+    { name: name2, disc },
+    { body: words, method: "POST", headers: authHead() }
+  );
   switch (res.status) {
     case STATUS_CODE.NotAcceptable:
       return [res.status, await res.json()];
-    // @ts-expect-error
     case STATUS_CODE.OK:
       putWordlist(await res.json());
+      return [res.status];
     default:
       return [res.status];
   }
 };
 var deleteWordList = async (wlid2) => {
   try {
-    await getRes(`${API_URL}/api/wordlist`, { wlid: wlid2 }, { method: "DELETE" });
+    const name2 = splitID(wlid2)[1];
+    await getRes(
+      `${API_URL}/api/wordlist`,
+      { name: name2 },
+      { method: "DELETE", headers: authHead() }
+    );
     await deleteWordlist(wlid2);
     return true;
   } catch {
@@ -2158,6 +2176,7 @@ var wlid = d2();
 var blevel = d2();
 var sprint = d2(-1);
 var name = d2("");
+var wlname = d2("");
 var loading = d2(false);
 var loca = d2("#about");
 var vocabulary = [];
@@ -2291,15 +2310,6 @@ var button_ripple_default = ({ class: className, children, onClick, ...rest }) =
   );
 };
 
-// ../memword-server/lib/iwordlist.ts
-var compareWL = (a4, b3) => a4.wlid.localeCompare(b3.wlid);
-var regex = /^(.+?)\/(.+)$/;
-var splitID = (id) => {
-  const m4 = regex.exec(id);
-  if (m4) return [m4[1], m4[2]];
-  return ["", ""];
-};
-
 // src/stat.tsx
 var sum = (s5, b3) => s5 + b3;
 var max = (a4, b3) => a4 > b3 ? a4 : b3;
@@ -2309,8 +2319,8 @@ var stat_default = ({ stat }) => {
   const width = totals.reduce(max) * 1.2;
   const totalSum = stat.total.reduce(sum);
   const taskSum = stat.task.reduce(sum);
-  const wlname = stat.wlid ? splitID(stat.wlid)[1] : "";
-  const title = `${stat.disc ?? wlname} - ${taskSum}|${totalSum}`;
+  const wlname2 = stat.wlid ? splitID(stat.wlid)[1] : "";
+  const title = `${stat.disc ?? wlname2} - ${taskSum}|${totalSum}`;
   const blevelBar = (blevel2) => {
     const total = totals[blevel2];
     const task = tasks[blevel2];
@@ -2644,17 +2654,33 @@ var setting_default = () => {
       /* @__PURE__ */ u4("label", { for: "filter", children: "\u8BBE\u7F6E\u8FC7\u6EE4" }),
       /* @__PURE__ */ u4(input_simple_default, { class: "grow", name: "filter", binding: filter })
     ] }),
-    /* @__PURE__ */ u4("fieldset", { class: "px-2 border rounded max-h-[50%] grow overflow-y-auto", children: [
+    /* @__PURE__ */ u4("fieldset", { class: "border rounded max-h-[50%] grow overflow-y-auto", children: [
       /* @__PURE__ */ u4("legend", { children: "\u53EF\u7528\u7684\u8BCD\u4E66" }),
-      /* @__PURE__ */ u4(list_default, { cindex, options: wls.value.map((wl) => wl.disc ?? wl.wlid), activeClass: "bg-[var(--bg-title)]" })
+      /* @__PURE__ */ u4(
+        list_default,
+        {
+          cindex,
+          options: wls.value.map((wl) => wl.disc ?? wl.wlid),
+          class: "px-2",
+          activeClass: "bg-[var(--bg-title)]"
+        }
+      )
     ] }),
     /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: handleAddSubClick, children: "\u6DFB\u52A0\u8BA2\u9605" }),
       /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: handleDeleteSubClick, children: "\u5220\u9664\u8BA2\u9605" })
     ] }),
-    /* @__PURE__ */ u4("fieldset", { class: "px-2 border rounded max-h-[50%] grow overflow-y-auto", children: [
+    /* @__PURE__ */ u4("fieldset", { class: "border rounded max-h-[50%] grow overflow-y-auto", children: [
       /* @__PURE__ */ u4("legend", { children: "\u6211\u8BA2\u9605\u7684\u8BCD\u4E66" }),
-      /* @__PURE__ */ u4(list_default, { cindex: mindex, options: mwls.value.map((wl) => wl.disc ?? wl.wlid), activeClass: "bg-[var(--bg-title)]" })
+      /* @__PURE__ */ u4(
+        list_default,
+        {
+          cindex: mindex,
+          options: mwls.value.map((wl) => wl.disc ?? wl.wlid),
+          class: "px-2",
+          activeClass: "bg-[var(--bg-title)]"
+        }
+      )
     ] }),
     /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: handleAddTaskClick, children: "\u6DFB\u52A0\u4EFB\u52A1" }),
@@ -3255,15 +3281,19 @@ var wordlists_default = () => {
   const cindex = useSignal(0);
   const wls = useSignal([]);
   const handleNewClick = () => {
-    wlid.value = "";
+    wlname.value = "";
     go("#wordlist");
   };
   const handleDeleteClick = async () => {
-    await deleteWordList(wls.value[cindex.value].wlid);
-    wls.value = [...wls.value.slice(0, cindex.value), ...wls.value.slice(cindex.value + 1)];
+    const name2 = splitID(wls.value[cindex.value].wlid)[1];
+    showTips(await deleteWordList(name2) ? "\u5220\u9664\u6210\u529F" : "\u5220\u9664\u5931\u8D25");
+    wls.value = [
+      ...wls.value.slice(0, cindex.value),
+      ...wls.value.slice(cindex.value + 1)
+    ];
   };
   const handleUpdateClick = () => {
-    wlid.value = wls.value[cindex.value].wlid;
+    wlname.value = splitID(wls.value[cindex.value].wlid)[1];
     go("#wordlist");
   };
   const init2 = async () => {
@@ -3273,7 +3303,15 @@ var wordlists_default = () => {
     init2();
   }, []);
   return /* @__PURE__ */ u4(dialog_default, { class: "p-2 flex flex-col gap-2", title: "\u6211\u7684\u8BCD\u4E66", onBackClick: () => go(), children: [
-    /* @__PURE__ */ u4("div", { class: "shrink grow border overflow-y-auto", children: /* @__PURE__ */ u4(list_default, { cindex, options: wls.value.map((wl) => wl.disc ?? wl.wlid) }) }),
+    /* @__PURE__ */ u4("div", { class: "h-0 grow border overflow-y-auto", children: /* @__PURE__ */ u4(
+      list_default,
+      {
+        cindex,
+        options: wls.value.map((wl) => wl.disc ?? wl.wlid),
+        class: "px-2",
+        activeClass: "bg-[var(--bg-title)]"
+      }
+    ) }),
     /* @__PURE__ */ u4("div", { class: "flex justify-end gap-2 pb-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", name: "new", onClick: handleNewClick, children: "\u65B0\u5EFA" }),
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", name: "delete", disabled: !wls.value.length, onClick: handleDeleteClick, children: "\u5220\u9664" }),
@@ -3284,12 +3322,12 @@ var wordlists_default = () => {
 
 // src/wordlist.tsx
 var wordlist_default = () => {
-  const name2 = useSignal("");
   const disc = useSignal("");
   const words = useSignal("");
   const replace = useSignal("");
   const handleOKClick = async () => {
-    const [status, result] = await postMyWordList(name2.value, words.value, disc.value);
+    wlname.value = wlname.value.replaceAll("/", "-");
+    const [status, result] = await postMyWordList(wlname.value, words.value, disc.value);
     switch (status) {
       case STATUS_CODE.BadRequest:
         return showTips("Error: \u65E0\u540D\u79F0\u6216\u65E0\u5185\u5BB9");
@@ -3304,11 +3342,11 @@ var wordlist_default = () => {
   };
   return /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col p-2", title: "\u4E0A\u4F20\u6211\u7684\u8BCD\u4E66", onBackClick: () => go(), children: [
     /* @__PURE__ */ u4("label", { for: "name", children: "\u540D\u79F0" }),
-    /* @__PURE__ */ u4("input", { name: "name", value: name2, onChange: (e4) => name2.value = e4.currentTarget.value }),
+    /* @__PURE__ */ u4(input_simple_default, { name: "name", binding: wlname }),
     /* @__PURE__ */ u4("label", { for: "disc", class: "mt-2", children: "\u63CF\u8FF0" }),
-    /* @__PURE__ */ u4("input", { name: "disc", value: disc, onChange: (e4) => disc.value = e4.currentTarget.value }),
+    /* @__PURE__ */ u4(input_simple_default, { name: "disc", binding: disc }),
     /* @__PURE__ */ u4("label", { for: "words", class: "mt-2", children: "\u8BCD\u8868" }),
-    /* @__PURE__ */ u4("textarea", { name: "words", class: "grow", value: words, onChange: (e4) => words.value = e4.currentTarget.value }),
+    /* @__PURE__ */ u4(input_textarea_default, { name: "words", class: "grow", binding: words }),
     replace.value.length ? /* @__PURE__ */ u4(k, { children: [
       /* @__PURE__ */ u4("label", { for: "replace", class: "text-red-500 mt-2", children: "\u8BF7\u8003\u8651\u7528\u4E0B\u9762\u7684\u8BCD\u66FF\u6362" }),
       /* @__PURE__ */ u4("textarea", { name: "replace", class: "grow", value: replace, onChange: (e4) => replace.value = e4.currentTarget.value })
