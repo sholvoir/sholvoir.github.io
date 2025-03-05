@@ -1721,7 +1721,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.17";
+var version = "0.7.18";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2061,6 +2061,18 @@ var totalStats = async () => {
   return { format: statsFormat, stats: await getStats(cwls) };
 };
 var getVocabulary = () => getJson(`${API_URL}/pub/vocabulary`);
+var postVocabulary = async (words) => {
+  try {
+    const res = await getRes(
+      `${API_URL}/admin/wordlist`,
+      void 0,
+      { body: words, method: "POST", headers: authHead() }
+    );
+    return res.ok;
+  } catch {
+    return false;
+  }
+};
 var getServerWordlist = async () => {
   const wls = await getJson(`${API_URL}/pub/wordlist`);
   if (!wls) return [];
@@ -2087,18 +2099,6 @@ var getWordlists = async (filter) => {
   } catch {
   }
   return getWordlists2(filter);
-};
-var postSysWordList = async (name2, words, disc) => {
-  try {
-    const res = await getRes(
-      `${API_URL}/admin/wordlist`,
-      { name: name2, disc },
-      { body: words, method: "POST", headers: authHead() }
-    );
-    return res.ok;
-  } catch {
-    return false;
-  }
 };
 var postMyWordList = async (name2, words, disc) => {
   const res = await getRes(
@@ -2442,93 +2442,119 @@ var help_default = () => /* @__PURE__ */ u4(dialog_default, { class: "flex flex-
   ] })
 ] }) });
 
+// components/input-simple.tsx
+var input_simple_default = ({ binding, ...rest }) => /* @__PURE__ */ u4("input", { ...rest, value: binding.value?.toString(), onInput: (e4) => binding.value = e4.currentTarget.value });
+
 // src/about.tsx
-var about_default = () => /* @__PURE__ */ u4(
-  dialog_default,
-  {
-    title: "\u5FEB\u4E50\u80CC\u5355\u8BCD",
-    class: "about flex flex-col pb-4 font-extrabold",
-    onBackClick: user.value ? () => go("#home") : void 0,
-    children: [
-      /* @__PURE__ */ u4("div", { children: [
-        /* @__PURE__ */ u4("h1", { children: "\u5FEB\u4E50\u80CC\u5355\u8BCD" }),
-        /* @__PURE__ */ u4("p", { children: [
-          "\u7248\u672C\uFF1A",
-          version
-        ] })
-      ] }),
-      /* @__PURE__ */ u4("div", { children: [
-        /* @__PURE__ */ u4("h1", { children: "\u8BED\u8A00\u57FA\u7840" }),
-        /* @__PURE__ */ u4("p", { children: [
-          "\u8BCD\u6C47\u662F",
-          /* @__PURE__ */ u4("b", { children: "\u8BED\u8A00\u7684\u57FA\u7840" }),
-          "\uFF0C\u5B66\u4E60\u8BED\u8A00\u5E94\u8BE5\u638C\u63E1\u4E00\u5B9A\u6570\u91CF\u7684\u57FA\u7840\u8BCD\u6C47\u3002"
-        ] })
-      ] }),
-      /* @__PURE__ */ u4("div", { children: [
-        /* @__PURE__ */ u4("h1", { children: "\u9AD8\u9891\u8BCD\u6C47" }),
-        /* @__PURE__ */ u4("p", { children: [
-          "\u6BCF\u4E2A\u8BCD\u6C47\u7684\u91CD\u8981\u7A0B\u5EA6\u662F\u4E0D\u4E00\u6837\u7684\uFF0C\u8D8A\u662F\u4F7F\u7528",
-          /* @__PURE__ */ u4("b", { children: "\u9891\u7387\u9AD8\u7684\u8BCD\u6C47" }),
-          "\uFF0C\u5176\u91CD\u8981\u7A0B\u5EA6\u8D8A\u9AD8\uFF0C\u672C\u5DE5\u5177\u63D0\u4F9B\u591A\u79CD\u8BCD\u9891\u5DE5\u5177\u7EDF\u8BA1\u7684\u7ED3\u679C\u8BCD\u4E66\u3002"
-        ] })
-      ] }),
-      /* @__PURE__ */ u4("div", { children: [
-        /* @__PURE__ */ u4("h1", { children: "\u9057\u5FD8\u66F2\u7EBF" }),
-        /* @__PURE__ */ u4("p", { children: [
-          "\u8BB0\u5FC6\u6700\u5927\u7684\u654C\u4EBA\u662F\u9057\u5FD8\uFF0C\u672C\u5DE5\u5177\u4F9D\u636E\u300C\u827E\u5BBE\u6D69\u65AF\u300D",
-          /* @__PURE__ */ u4("b", { children: "\u9057\u5FD8\u66F2\u7EBF" }),
-          "\u8BBE\u8BA1\u5927\u8111\u523A\u6FC0\u9891\u7387\uFF0C\u4EE5\u6700\u5927\u5316\u8BB0\u5FC6\u6548\u7387\u3002"
-        ] })
-      ] }),
-      /* @__PURE__ */ u4("div", { children: [
-        /* @__PURE__ */ u4("h1", { children: "\u788E\u7247\u65F6\u95F4" }),
-        /* @__PURE__ */ u4("p", { children: [
-          "\u73B0\u4EE3\u4EBA\u5DE5\u4F5C\u5B66\u4E60\u90FD\u975E\u5E38\u5FD9\u788C\uFF0C\u5145\u5206\u5229\u7528\u597D",
-          /* @__PURE__ */ u4("b", { children: "\u788E\u7247\u65F6\u95F4" }),
-          "\uFF0C\u662F\u6210\u529F\u7684\u5173\u952E\u3002"
-        ] })
-      ] }),
-      /* @__PURE__ */ u4("div", { children: [
-        /* @__PURE__ */ u4("h1", { children: "\u5F00\u59CB\u5B66\u4E60" }),
-        /* @__PURE__ */ u4("p", { children: [
-          "\u4F7F\u7528\u4F60\u7684\u624B\u673A\uFF0C\u5355\u51FB",
+var about_default = () => {
+  const show = useSignal(false);
+  const auth2 = useSignal("");
+  return /* @__PURE__ */ u4(
+    dialog_default,
+    {
+      title: "\u5FEB\u4E50\u80CC\u5355\u8BCD",
+      class: "about flex flex-col pb-4 font-extrabold",
+      onBackClick: user.value ? () => go("#home") : void 0,
+      children: [
+        show.value && /* @__PURE__ */ u4(k, { children: [
+          /* @__PURE__ */ u4(input_simple_default, { binding: auth2 }),
           /* @__PURE__ */ u4(
-            button_ripple_default,
+            button_base_default,
             {
-              class: "button bg-orange-300 text-slate-800",
-              title: "login",
-              onClick: () => go("#signup"),
-              children: "\u767B\u5F55"
+              class: "button btn-normal",
+              onClick: () => setMeta("_auth", auth2.value),
+              children: "OK"
             }
-          ),
-          "\u5F00\u59CB\u514D\u8D39\u5B66\u4E60\u5427\u3002"
-        ] })
-      ] }),
-      /* @__PURE__ */ u4("div", { children: [
-        /* @__PURE__ */ u4("h1", { children: "\u5FAE\u4FE1" }),
-        /* @__PURE__ */ u4("p", { children: [
-          "*\u63D0\u793A\u4E00\uFF1A\u8BF7\u4F7F\u7528",
-          /* @__PURE__ */ u4("b", { children: "\u9664\u5FAE\u4FE1\u4EE5\u5916" }),
-          "\u7684\u5176\u4ED6\u6D4F\u89C8\u5668\uFF0C\u5982\u679C\u5F53\u524D\u662F\u5728\u5FAE\u4FE1\u4E2D\uFF0C\u70B9\u51FB\u5C4F\u5E55\u53F3\u4E0A(...)\uFF0C\u7136\u540E\u9009\u62E9\u300C\u5728\u9ED8\u8BA4\u6D4F\u89C8\u5668\u4E2D\u6253\u5F00\u300D\u3002"
-        ] })
-      ] }),
-      /* @__PURE__ */ u4("div", { children: [
-        /* @__PURE__ */ u4("h1", { children: "\u684C\u9762" }),
-        /* @__PURE__ */ u4("p", { children: [
-          "*\u63D0\u793A\u4E8C(iOS): \u8BF7\u4F7F\u7528\u300C\u5171\u4EAB\u300D-\u300C\u6DFB\u52A0\u5230\u4E3B\u5C4F\u5E55\u300D\u5B89\u88C5 ",
-          /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
-          " \u5230\u684C\u9762\uFF0C\u4EE5\u4FBF\u4E0B\u6B21\u76F4\u63A5\u70B9\u51FB\u8FDB\u5165\u3002"
+          )
         ] }),
-        /* @__PURE__ */ u4("p", { children: [
-          "*\u63D0\u793A\u4E09(Android): \u8BF7\u4F7F\u7528\u300C...\u300D-\u300C\u5B89\u88C5\u5E94\u7528\u300D\u5B89\u88C5 ",
-          /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
-          " \u5230\u684C\u9762\u3002"
+        /* @__PURE__ */ u4("div", { children: [
+          /* @__PURE__ */ u4("h1", { children: "\u5FEB\u4E50\u80CC\u5355\u8BCD" }),
+          /* @__PURE__ */ u4("p", { children: [
+            "\u7248\u672C\uFF1A",
+            version
+          ] })
+        ] }),
+        /* @__PURE__ */ u4("div", { children: [
+          /* @__PURE__ */ u4("h1", { children: "\u8BED\u8A00\u57FA\u7840" }),
+          /* @__PURE__ */ u4("p", { children: [
+            "\u8BCD\u6C47\u662F",
+            /* @__PURE__ */ u4("b", { children: "\u8BED\u8A00\u7684\u57FA\u7840" }),
+            "\uFF0C\u5B66\u4E60\u8BED\u8A00\u5E94\u8BE5\u638C\u63E1\u4E00\u5B9A\u6570\u91CF\u7684\u57FA\u7840\u8BCD\u6C47\u3002"
+          ] })
+        ] }),
+        /* @__PURE__ */ u4("div", { children: [
+          /* @__PURE__ */ u4("h1", { children: "\u9AD8\u9891\u8BCD\u6C47" }),
+          /* @__PURE__ */ u4("p", { children: [
+            "\u6BCF\u4E2A\u8BCD\u6C47\u7684\u91CD\u8981\u7A0B\u5EA6\u662F\u4E0D\u4E00\u6837\u7684\uFF0C\u8D8A\u662F\u4F7F\u7528",
+            /* @__PURE__ */ u4("b", { children: "\u9891\u7387\u9AD8\u7684\u8BCD\u6C47" }),
+            "\uFF0C\u5176\u91CD\u8981\u7A0B\u5EA6\u8D8A\u9AD8\uFF0C\u672C\u5DE5\u5177\u63D0\u4F9B\u591A\u79CD\u8BCD\u9891\u5DE5\u5177\u7EDF\u8BA1\u7684\u7ED3\u679C\u8BCD\u4E66\u3002"
+          ] })
+        ] }),
+        /* @__PURE__ */ u4("div", { children: [
+          /* @__PURE__ */ u4("h1", { children: "\u9057\u5FD8\u66F2\u7EBF" }),
+          /* @__PURE__ */ u4("p", { children: [
+            "\u8BB0\u5FC6\u6700\u5927\u7684\u654C\u4EBA\u662F\u9057\u5FD8\uFF0C\u672C\u5DE5\u5177\u4F9D\u636E\u300C\u827E\u5BBE\u6D69\u65AF\u300D",
+            /* @__PURE__ */ u4("b", { children: "\u9057\u5FD8\u66F2\u7EBF" }),
+            "\u8BBE\u8BA1\u5927\u8111\u523A\u6FC0\u9891\u7387\uFF0C\u4EE5\u6700\u5927\u5316\u8BB0\u5FC6\u6548\u7387\u3002"
+          ] })
+        ] }),
+        /* @__PURE__ */ u4("div", { children: [
+          /* @__PURE__ */ u4("h1", { children: "\u788E\u7247\u65F6\u95F4" }),
+          /* @__PURE__ */ u4("p", { children: [
+            "\u73B0\u4EE3\u4EBA\u5DE5\u4F5C\u5B66\u4E60\u90FD\u975E\u5E38\u5FD9\u788C\uFF0C\u5145\u5206\u5229\u7528\u597D",
+            /* @__PURE__ */ u4("b", { children: "\u788E\u7247\u65F6\u95F4" }),
+            "\uFF0C\u662F\u6210\u529F\u7684\u5173\u952E\u3002"
+          ] })
+        ] }),
+        /* @__PURE__ */ u4("div", { children: [
+          /* @__PURE__ */ u4("h1", { children: "\u5F00\u59CB\u5B66\u4E60" }),
+          /* @__PURE__ */ u4("p", { children: [
+            "\u4F7F\u7528\u4F60\u7684\u624B\u673A\uFF0C\u5355\u51FB",
+            /* @__PURE__ */ u4(
+              button_ripple_default,
+              {
+                class: "button bg-orange-300 text-slate-800",
+                title: "login",
+                onClick: () => go("#signup"),
+                children: "\u767B\u5F55"
+              }
+            ),
+            "\u5F00\u59CB\u514D\u8D39\u5B66\u4E60\u5427\u3002"
+          ] })
+        ] }),
+        /* @__PURE__ */ u4("div", { children: [
+          /* @__PURE__ */ u4("h1", { children: "\u5FAE\u4FE1" }),
+          /* @__PURE__ */ u4("p", { children: [
+            "*\u63D0\u793A\u4E00\uFF1A\u8BF7\u4F7F\u7528",
+            /* @__PURE__ */ u4("b", { children: "\u9664\u5FAE\u4FE1\u4EE5\u5916" }),
+            "\u7684\u5176\u4ED6\u6D4F\u89C8\u5668\uFF0C\u5982\u679C\u5F53\u524D\u662F\u5728\u5FAE\u4FE1\u4E2D\uFF0C\u70B9\u51FB\u5C4F\u5E55\u53F3\u4E0A(...)\uFF0C\u7136\u540E\u9009\u62E9\u300C\u5728\u9ED8\u8BA4\u6D4F\u89C8\u5668\u4E2D\u6253\u5F00\u300D\u3002"
+          ] })
+        ] }),
+        /* @__PURE__ */ u4("div", { children: [
+          /* @__PURE__ */ u4("h1", { children: "\u684C\u9762" }),
+          /* @__PURE__ */ u4("p", { children: [
+            "*\u63D0\u793A\u4E8C(iOS): \u8BF7\u4F7F\u7528\u300C\u5171\u4EAB\u300D-\u300C\u6DFB\u52A0\u5230\u4E3B\u5C4F\u5E55\u300D\u5B89\u88C5 ",
+            /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
+            " \u5230\u684C\u9762\uFF0C\u4EE5\u4FBF\u4E0B\u6B21\u76F4\u63A5",
+            /* @__PURE__ */ u4(
+              button_base_default,
+              {
+                onClick: () => show.value = true,
+                children: "\u70B9\u51FB"
+              }
+            ),
+            "\u8FDB\u5165\u3002"
+          ] }),
+          /* @__PURE__ */ u4("p", { children: [
+            "*\u63D0\u793A\u4E09(Android): \u8BF7\u4F7F\u7528\u300C...\u300D-\u300C\u5B89\u88C5\u5E94\u7528\u300D\u5B89\u88C5 ",
+            /* @__PURE__ */ u4("b", { children: "Web\u5E94\u7528" }),
+            " \u5230\u684C\u9762\uFF0C\u4EE5\u4FBF\u4E0B\u6B21\u76F4\u63A5\u70B9\u51FB\u8FDB\u5165\u3002"
+          ] })
         ] })
-      ] })
-    ]
-  }
-);
+      ]
+    }
+  );
+};
 
 // src/menu.tsx
 var menu_default = () => {
@@ -2552,7 +2578,7 @@ var menu_default = () => {
         isAdmin() && /* @__PURE__ */ u4(k, { children: [
           /* @__PURE__ */ u4("menu", { title: "#lookup", onClick: open, children: "\u8F9E\u5178\u7F16\u8F91" }),
           /* @__PURE__ */ u4("div", {}),
-          /* @__PURE__ */ u4("menu", { title: "#syswordlist", onClick: open, children: "\u7CFB\u7EDF\u8BCD\u4E66" }),
+          /* @__PURE__ */ u4("menu", { title: "#ignore", onClick: open, children: "\u62FC\u5199\u5FFD\u7565" }),
           /* @__PURE__ */ u4("div", {})
         ] }),
         /* @__PURE__ */ u4("menu", { title: "#issue", onClick: open, children: "\u62A5\u544A\u95EE\u9898" }),
@@ -2593,9 +2619,6 @@ var issue_default = () => {
     ] })
   ] });
 };
-
-// components/input-simple.tsx
-var input_simple_default = ({ binding, ...rest }) => /* @__PURE__ */ u4("input", { ...rest, value: binding.value?.toString(), onInput: (e4) => binding.value = e4.currentTarget.value });
 
 // components/list.tsx
 var list_default = ({ options, cindex, class: className, activeClass }) => options.map((option, i5) => /* @__PURE__ */ u4(
@@ -3250,21 +3273,14 @@ var signout_default = () => {
   ] }) });
 };
 
-// src/syswordlist.tsx
-var syswordlist_default = () => {
-  const name2 = useSignal("");
-  const disc = useSignal("");
+// src/ignore.tsx
+var ignore_default = () => {
   const words = useSignal("");
   const handleOKClick = async () => {
-    const result = await postSysWordList(name2.value, words.value, disc.value);
-    showTips(result ? "\u8BCD\u4E66\u4E0A\u4F20\u6210\u529F" : "\u8BCD\u4E66\u4E0A\u4F20\u5931\u8D25");
+    const result = await postVocabulary(words.value);
+    showTips(result ? "\u4E0A\u4F20\u6210\u529F" : "\u4E0A\u4F20\u5931\u8D25");
   };
-  return /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col p-2", title: "\u7CFB\u7EDF\u8BCD\u4E66", onBackClick: () => go(), children: [
-    /* @__PURE__ */ u4("label", { for: "name", children: "\u540D\u79F0" }),
-    /* @__PURE__ */ u4("input", { name: "name", value: name2, onChange: (e4) => name2.value = e4.currentTarget.value }),
-    /* @__PURE__ */ u4("label", { for: "disc", class: "mt-2", children: "\u63CF\u8FF0" }),
-    /* @__PURE__ */ u4("input", { name: "disc", value: disc, onChange: (e4) => disc.value = e4.currentTarget.value }),
-    /* @__PURE__ */ u4("label", { for: "disc", class: "mt-2", children: "\u8BCD\u8868" }),
+  return /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col p-2", title: "\u62FC\u5199\u5FFD\u7565", onBackClick: () => go(), children: [
     /* @__PURE__ */ u4("textarea", { class: "grow", value: words, onChange: (e4) => words.value = e4.currentTarget.value }),
     /* @__PURE__ */ u4("div", { class: "flex justify-end gap-2 my-2", children: [
       /* @__PURE__ */ u4(button_ripple_default, { class: "w-32 button btn-normal", onClick: () => go(), children: "\u53D6\u6D88" }),
@@ -3393,7 +3409,7 @@ var root_default = () => {
   dialogs.set("#signup", /* @__PURE__ */ u4(signup_default, {}));
   dialogs.set("#signin", /* @__PURE__ */ u4(signin_default, {}));
   dialogs.set("#signout", /* @__PURE__ */ u4(signout_default, {}));
-  dialogs.set("#syswordlist", /* @__PURE__ */ u4(syswordlist_default, {}));
+  dialogs.set("#ignore", /* @__PURE__ */ u4(ignore_default, {}));
   dialogs.set("#wordlists", /* @__PURE__ */ u4(wordlists_default, {}));
   dialogs.set("#wordlist", /* @__PURE__ */ u4(wordlist_default, {}));
   y2(() => {
