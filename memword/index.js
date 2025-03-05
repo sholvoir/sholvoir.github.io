@@ -1721,7 +1721,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.18";
+var version = "0.7.19";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -1981,6 +1981,7 @@ var deleteDict = async (word) => {
     return false;
   }
 };
+var initSetting = async () => setting = await getMeta("_setting");
 var syncSetting = async (cSetting) => {
   if (cSetting && cSetting.version > setting.version) setting = cSetting;
   const lSetting = await getMeta("_setting");
@@ -2199,6 +2200,7 @@ var startStudy = async (wl, bl) => {
 var init = async () => {
   if (user.value = await getUser() ?? "") {
     go("#home");
+    await initSetting();
     await totalStats2();
     const v4 = await getVocabulary();
     if (v4) vocabulary = v4;
@@ -2610,14 +2612,22 @@ var issue_default = () => {
     showTips("\u63D0\u4EA4\u6210\u529F!");
     go();
   };
-  return /* @__PURE__ */ u4(dialog_default, { class: "p-2 flex flex-col gap-2", title: "\u63D0\u4EA4\u95EE\u9898", children: [
-    /* @__PURE__ */ u4("label", { children: "\u8BF7\u5728\u8FD9\u91CC\u63CF\u8FF0\u4F60\u7684\u95EE\u9898:" }),
-    /* @__PURE__ */ u4(input_textarea_default, { name: "issue", class: "grow", binding: issue, children: issue.value }),
-    /* @__PURE__ */ u4("div", { class: "flex gap-2 mt-2 pb-4 justify-end", children: [
-      /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", onClick: () => go(), children: "\u53D6\u6D88" }),
-      /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-prime", onClick: handleSubmitClick, children: "\u63D0\u4EA4" })
-    ] })
-  ] });
+  return /* @__PURE__ */ u4(
+    dialog_default,
+    {
+      class: "p-2 flex flex-col",
+      title: "\u63D0\u4EA4\u95EE\u9898",
+      onBackClick: () => go(),
+      children: [
+        /* @__PURE__ */ u4("label", { children: "\u8BF7\u5728\u8FD9\u91CC\u63CF\u8FF0\u4F60\u7684\u95EE\u9898:" }),
+        /* @__PURE__ */ u4(input_textarea_default, { name: "issue", class: "grow", binding: issue, children: issue.value }),
+        /* @__PURE__ */ u4("div", { class: "flex gap-2 mt-2 pb-4 justify-end", children: [
+          /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", onClick: () => go(), children: "\u53D6\u6D88" }),
+          /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-prime", onClick: handleSubmitClick, children: "\u63D0\u4EA4" })
+        ] })
+      ]
+    }
+  );
 };
 
 // components/list.tsx
@@ -2642,7 +2652,10 @@ var setting_default = () => {
     mwls.value = [...mwls.value, wls.value[cindex.value]];
   };
   const handleDeleteSubClick = () => {
-    mwls.value = [...mwls.value.slice(0, mindex.value), ...mwls.value.slice(mindex.value + 1)];
+    mwls.value = [
+      ...mwls.value.slice(0, mindex.value),
+      ...mwls.value.slice(mindex.value + 1)
+    ];
   };
   const handleAddTaskClick = async () => {
     loading.value = true;
@@ -2652,7 +2665,11 @@ var setting_default = () => {
     go("#home");
   };
   const handleOKClick = async () => {
-    await syncSetting({ format: settingFormat, version: now(), books: mwls.value.map((wl) => wl.wlid) });
+    await syncSetting({
+      format: settingFormat,
+      version: now(),
+      books: mwls.value.map((wl) => wl.wlid)
+    });
     await totalStats2();
     go();
   };
@@ -2669,45 +2686,88 @@ var setting_default = () => {
   y2(() => {
     init2();
   }, []);
-  return /* @__PURE__ */ u4(dialog_default, { class: "p-2 gap-2 flex flex-col", title: "\u8BBE\u7F6E", onBackClick: () => go(), children: [
-    /* @__PURE__ */ u4("div", { class: "flex gap-2", children: [
-      /* @__PURE__ */ u4("label", { for: "filter", children: "\u8BBE\u7F6E\u8FC7\u6EE4" }),
-      /* @__PURE__ */ u4(input_simple_default, { class: "grow", name: "filter", binding: filter })
-    ] }),
-    /* @__PURE__ */ u4("fieldset", { class: "border rounded max-h-[50%] grow overflow-y-auto", children: [
-      /* @__PURE__ */ u4("legend", { children: "\u53EF\u7528\u7684\u8BCD\u4E66" }),
-      /* @__PURE__ */ u4(
-        list_default,
-        {
-          cindex,
-          options: wls.value.map((wl) => wl.disc ?? wl.wlid),
-          class: "px-2",
-          activeClass: "bg-[var(--bg-title)]"
-        }
-      )
-    ] }),
-    /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
-      /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: handleAddSubClick, children: "\u6DFB\u52A0\u8BA2\u9605" }),
-      /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: handleDeleteSubClick, children: "\u5220\u9664\u8BA2\u9605" })
-    ] }),
-    /* @__PURE__ */ u4("fieldset", { class: "border rounded max-h-[50%] grow overflow-y-auto", children: [
-      /* @__PURE__ */ u4("legend", { children: "\u6211\u8BA2\u9605\u7684\u8BCD\u4E66" }),
-      /* @__PURE__ */ u4(
-        list_default,
-        {
-          cindex: mindex,
-          options: mwls.value.map((wl) => wl.disc ?? wl.wlid),
-          class: "px-2",
-          activeClass: "bg-[var(--bg-title)]"
-        }
-      )
-    ] }),
-    /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
-      /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: handleAddTaskClick, children: "\u6DFB\u52A0\u4EFB\u52A1" }),
-      /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-normal grow", onClick: () => go(), children: "\u53D6\u6D88" }),
-      /* @__PURE__ */ u4(button_ripple_default, { class: "button btn-prime grow", onClick: handleOKClick, children: "\u4FDD\u5B58" })
-    ] })
-  ] });
+  return /* @__PURE__ */ u4(
+    dialog_default,
+    {
+      class: "p-2 gap-2 flex flex-col",
+      title: "\u8BBE\u7F6E",
+      onBackClick: () => go(),
+      children: [
+        /* @__PURE__ */ u4("div", { class: "flex gap-2", children: [
+          /* @__PURE__ */ u4("label", { for: "filter", children: "\u8BBE\u7F6E\u8FC7\u6EE4" }),
+          /* @__PURE__ */ u4(input_simple_default, { class: "grow", name: "filter", binding: filter })
+        ] }),
+        /* @__PURE__ */ u4("fieldset", { class: "border rounded max-h-[50%] grow overflow-y-auto", children: [
+          /* @__PURE__ */ u4("legend", { children: "\u53EF\u7528\u7684\u8BCD\u4E66" }),
+          /* @__PURE__ */ u4(
+            list_default,
+            {
+              class: "px-2",
+              cindex,
+              options: wls.value.map((wl) => wl.disc ?? wl.wlid),
+              activeClass: "bg-[var(--bg-title)]"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
+          /* @__PURE__ */ u4(
+            button_ripple_default,
+            {
+              class: "button btn-normal grow",
+              onClick: handleAddSubClick,
+              children: "\u6DFB\u52A0\u8BA2\u9605"
+            }
+          ),
+          /* @__PURE__ */ u4(
+            button_ripple_default,
+            {
+              class: "button btn-normal grow",
+              onClick: handleDeleteSubClick,
+              children: "\u5220\u9664\u8BA2\u9605"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ u4("fieldset", { class: "border rounded max-h-[50%] grow overflow-y-auto", children: [
+          /* @__PURE__ */ u4("legend", { children: "\u6211\u8BA2\u9605\u7684\u8BCD\u4E66" }),
+          /* @__PURE__ */ u4(
+            list_default,
+            {
+              class: "px-2",
+              cindex: mindex,
+              options: mwls.value.map((wl) => wl.disc ?? wl.wlid),
+              activeClass: "bg-[var(--bg-title)]"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ u4("div", { class: "flex justify-between gap-2", children: [
+          /* @__PURE__ */ u4(
+            button_ripple_default,
+            {
+              class: "button btn-normal grow",
+              onClick: handleAddTaskClick,
+              children: "\u6DFB\u52A0\u4EFB\u52A1"
+            }
+          ),
+          /* @__PURE__ */ u4(
+            button_ripple_default,
+            {
+              class: "button btn-normal grow",
+              onClick: () => go(),
+              children: "\u53D6\u6D88"
+            }
+          ),
+          /* @__PURE__ */ u4(
+            button_ripple_default,
+            {
+              class: "button btn-prime grow",
+              onClick: handleOKClick,
+              children: "\u4FDD\u5B58"
+            }
+          )
+        ] })
+      ]
+    }
+  );
 };
 
 // components/input-text.tsx
@@ -3310,7 +3370,7 @@ var wordlists_default = () => {
     go("#wordlist");
   };
   const init2 = async () => {
-    wls.value = await getWordlists((wl) => wl.wlid.startsWith(user.value));
+    wls.value = (await getServerWordlist()).filter((wl) => wl.wlid.startsWith(user.value)).sort(compareWL);
   };
   y2(() => {
     init2();
