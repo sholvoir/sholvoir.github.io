@@ -1712,7 +1712,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.14";
+var version = "0.7.15";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2183,11 +2183,14 @@ var startStudy = async (wl, bl) => {
 var init = async () => {
   if (user.value = await getUser() ?? "") {
     go("#home");
-    await syncSetting();
+    await totalStats2();
     const v4 = await getVocabulary();
     if (v4) vocabulary = v4;
-    await syncTasks();
-    await totalStats2();
+    (async () => {
+      await syncSetting();
+      await syncTasks();
+      await totalStats2();
+    })();
   } else go("#about");
 };
 
