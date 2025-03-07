@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="MemWord" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <script>navigator.serviceWorker.getRegistrations().then(srs=>srs.forEach(sr=>sr.unregister()))</script>
+  <script>navigator.serviceWorker.register('worker.js')</script>
   <script type="module" crossorigin src="index.js"></script>
   <link rel="stylesheet" crossorigin href="styles.css">
 </head>
