@@ -1721,7 +1721,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.19";
+var version = "0.7.20";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2061,11 +2061,14 @@ var totalStats = async () => {
   for (const wlid2 of setting.books) cwls.push(await getClientWordlist(wlid2));
   return { format: statsFormat, stats: await getStats(cwls) };
 };
-var getVocabulary = () => getJson(`${API_URL}/pub/vocabulary`);
+var getVocabulary = async () => {
+  const wordlist = await getClientWordlist("system/vocabulary");
+  if (wordlist) return Array.from(wordlist.wordSet).sort();
+};
 var postVocabulary = async (words) => {
   try {
     const res = await getRes(
-      `${API_URL}/admin/wordlist`,
+      `${API_URL}/admin/vocabulary`,
       void 0,
       { body: words, method: "POST", headers: authHead() }
     );
@@ -2176,7 +2179,7 @@ var sprint = d2(-1);
 var name = d2("");
 var wlname = d2("");
 var loading = d2(false);
-var loca = d2("#about");
+var loca = d2("");
 var vocabulary = [];
 var totalStats2 = async () => stats.value = await totalStats();
 var isAdmin = () => user.value == "hua";
@@ -2910,6 +2913,11 @@ function Lookup() {
   const handleDeleteClick = async () => {
     showTips(await deleteDict(word.value) ? `success delete word "${word.value}"!` : `Error`);
   };
+  useSignalEffect(() => {
+    word.value = citem.value?.word ?? "";
+    cindex.value = 0;
+    cards.value = citem.value?.cards ?? [];
+  });
   return /* @__PURE__ */ u4(dialog_default, { class: "flex flex-col gap-2 p-2", title: "\u8F9E\u5178\u7F16\u8F91\xE6\u02CC\u0259\u02C8\u026A", onBackClick: () => go(), children: [
     /* @__PURE__ */ u4("div", { class: "flex gap-2", children: [
       /* @__PURE__ */ u4(
@@ -3157,6 +3165,14 @@ var study_default = () => {
               disabled: !isPhaseAnswer.value,
               onClick: () => player.current?.play(),
               class: "i-material-symbols-volume-up text-blue"
+            }
+          ),
+          isAdmin() && /* @__PURE__ */ u4(
+            button_base_default,
+            {
+              disabled: !isPhaseAnswer.value,
+              onClick: () => go("#lookup"),
+              class: "i-material-symbols-dictionary-outline text-cyan"
             }
           ),
           /* @__PURE__ */ u4("div", { class: "grow text-center text-xl", children: sprint.value > 0 ? sprint.value : "" }),
