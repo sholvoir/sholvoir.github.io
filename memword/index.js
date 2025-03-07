@@ -1721,7 +1721,7 @@ var itemMergeDict = (item, dict) => {
 var API_URL = "https://memword.micinfotech.com";
 
 // package.json
-var version = "0.7.20";
+var version = "0.7.21";
 
 // ../memword-server/lib/itask.ts
 var MAX_NEXT = 2e9;
@@ -2056,6 +2056,14 @@ var submitIssue = async (issue) => {
   await addIssue(issue);
   submitIssues();
 };
+var getServerIssues = () => getJson(`${API_URL}/admin/issue`, void 0, {
+  method: "GET",
+  headers: authHead()
+});
+var deleteServerIssue = (_id) => getJson(`${API_URL}/admin/issue`, { _id }, {
+  method: "DELETE",
+  headers: authHead()
+});
 var totalStats = async () => {
   const cwls = [];
   for (const wlid2 of setting.books) cwls.push(await getClientWordlist(wlid2));
@@ -2584,6 +2592,8 @@ var menu_default = () => {
           /* @__PURE__ */ u4("menu", { title: "#lookup", onClick: open, children: "\u8F9E\u5178\u7F16\u8F91" }),
           /* @__PURE__ */ u4("div", {}),
           /* @__PURE__ */ u4("menu", { title: "#ignore", onClick: open, children: "\u62FC\u5199\u5FFD\u7565" }),
+          /* @__PURE__ */ u4("div", {}),
+          /* @__PURE__ */ u4("menu", { title: "#issues", onClick: open, children: "\u5904\u7406\u95EE\u9898" }),
           /* @__PURE__ */ u4("div", {})
         ] }),
         /* @__PURE__ */ u4("menu", { title: "#issue", onClick: open, children: "\u62A5\u544A\u95EE\u9898" }),
@@ -2643,6 +2653,47 @@ var list_default = ({ options, cindex, class: className, activeClass }) => optio
   },
   i5
 ));
+
+// src/issues.tsx
+var issues_default = () => {
+  const cindex = useSignal(0);
+  const issues = useSignal([]);
+  const handleSubmitClick = async () => {
+    const issue = issues.value[cindex.value];
+    const result = await deleteServerIssue(issue._id);
+    if (result.acknowledged) issues.value = [
+      ...issues.value.slice(0, cindex.value),
+      ...issues.value.slice(cindex.value + 1)
+    ];
+    showTips(result.acknowledged ? "\u5904\u7406\u6210\u529F!" : "\u5904\u7406\u5931\u8D25");
+    go();
+  };
+  y2(() => {
+    getServerIssues().then((is) => is && (issues.value = is));
+  }, []);
+  return /* @__PURE__ */ u4(
+    dialog_default,
+    {
+      class: "p-2 flex flex-col",
+      title: "\u5904\u7406\u95EE\u9898",
+      onBackClick: () => go(),
+      children: [
+        /* @__PURE__ */ u4("div", { class: "grow border p-2", children: /* @__PURE__ */ u4(
+          list_default,
+          {
+            cindex,
+            activeClass: "bg-[var(--bg-title)]",
+            options: issues.value.map((is) => `${is.reporter}: ${is.issue}`)
+          }
+        ) }),
+        /* @__PURE__ */ u4("div", { class: "flex gap-2 mt-2 pb-4 justify-end", children: [
+          /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-normal", onClick: () => go(), children: "\u53D6\u6D88" }),
+          /* @__PURE__ */ u4(button_ripple_default, { class: "w-24 button btn-prime", onClick: handleSubmitClick, children: "\u5904\u7406" })
+        ] })
+      ]
+    }
+  );
+};
 
 // src/setting.tsx
 var setting_default = () => {
@@ -3478,6 +3529,7 @@ var root_default = () => {
   dialogs.set("#about", /* @__PURE__ */ u4(about_default, {}));
   dialogs.set("#menu", /* @__PURE__ */ u4(menu_default, {}));
   dialogs.set("#issue", /* @__PURE__ */ u4(issue_default, {}));
+  dialogs.set("#issues", /* @__PURE__ */ u4(issues_default, {}));
   dialogs.set("#setting", /* @__PURE__ */ u4(setting_default, {}));
   dialogs.set("#lookup", /* @__PURE__ */ u4(Lookup, {}));
   dialogs.set("#search", /* @__PURE__ */ u4(search_default, {}));
