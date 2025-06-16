@@ -1,1 +1,0 @@
-const e=`https://memword.micinfotech.com`,t=`0.11.0`;export{e as API_URL,t as version};
